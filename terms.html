@@ -4,99 +4,342 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Terms of Service — Snip It!</title>
+  <meta name="description" content="Snip It! Terms of Service — the rules for using the app."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Nunito', sans-serif; background: #0d0d1a; color: #fff; line-height: 1.7; }
-    a { color: #FF6B35; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; border-bottom: 1px solid #1e1e30; }
-    .nav-logo { font-family: 'Fredoka One', cursive; font-size: 24px; background: linear-gradient(135deg, #FF6B35, #FF4B4B, #FF9500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .content { max-width: 720px; margin: 0 auto; padding: 72px 24px 100px; }
-    .page-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #FF6B35; margin-bottom: 12px; }
-    h1 { font-family: 'Fredoka One', cursive; font-size: 40px; margin-bottom: 8px; }
-    .updated { font-size: 13px; color: #555; margin-bottom: 48px; }
-    h2 { font-family: 'Fredoka One', cursive; font-size: 22px; color: #fff; margin: 40px 0 12px; }
-    p { font-size: 15px; color: #888; margin-bottom: 16px; }
-    ul { padding-left: 20px; margin-bottom: 16px; }
-    li { font-size: 15px; color: #888; margin-bottom: 8px; }
-    .highlight { background: #141428; border: 1px solid #1e1e30; border-radius: 14px; padding: 20px 22px; margin: 24px 0; }
-    .highlight p { margin: 0; }
-    footer { border-top: 1px solid #1e1e30; padding: 32px 48px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-    .footer-logo { font-family: 'Fredoka One', cursive; font-size: 18px; background: linear-gradient(135deg, #FF6B35, #FF4B4B, #FF9500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .footer-copy { font-size: 13px; color: #555; }
-    @media (max-width: 600px) { nav { padding: 16px 20px; } footer { padding: 24px 20px; } }
+
+    :root {
+      --bg: #0d0d1a;
+      --card-bg: #13131f;
+      --border: #2a2a3e;
+      --grad: linear-gradient(135deg, #FF6B35, #FF4B4B);
+      --orange: #FF6B35;
+      --muted: #888;
+      --text: #e8e8f0;
+      --heading-font: 'Fredoka One', cursive;
+      --body-font: 'Nunito', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body-font);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      background: rgba(13,13,26,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--heading-font);
+      font-size: 1.4rem;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.55rem 1.4rem;
+      background: var(--grad);
+      color: #fff;
+      font-family: var(--body-font);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .btn-primary:hover { opacity: 0.85; }
+
+    /* PAGE HERO */
+    .page-hero {
+      padding: 7rem 2rem 3rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.8rem;
+    }
+
+    .page-title {
+      font-family: var(--heading-font);
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: #fff;
+      margin-bottom: 0.6rem;
+    }
+
+    .page-date {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* CONTENT */
+    .content-wrap {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 6rem;
+    }
+
+    .content-wrap h2 {
+      font-family: var(--heading-font);
+      font-size: 1.3rem;
+      color: #fff;
+      margin: 2.5rem 0 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .content-wrap h2:first-child { margin-top: 0; }
+
+    .content-wrap p {
+      color: #b8b8cc;
+      margin-bottom: 0.9rem;
+      font-size: 0.97rem;
+    }
+
+    .content-wrap ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 0.9rem;
+    }
+
+    .content-wrap ul li {
+      color: #b8b8cc;
+      font-size: 0.97rem;
+      padding: 0.3rem 0 0.3rem 1.4rem;
+      position: relative;
+    }
+
+    .content-wrap ul li::before {
+      content: '✂';
+      position: absolute;
+      left: 0;
+      font-size: 0.7rem;
+      top: 0.42rem;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .highlight-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--orange);
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      margin: 1.2rem 0;
+    }
+
+    .highlight-box p {
+      margin: 0;
+      color: var(--text);
+    }
+
+    a.email-link {
+      color: var(--orange);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a.email-link:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      background: #0a0a15;
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      font-family: var(--heading-font);
+      font-size: 1.2rem;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-copy { color: #555; font-size: 0.85rem; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      nav { padding: 0 1.2rem; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+      .content-wrap { padding: 2.5rem 1.2rem 5rem; }
+    }
   </style>
 </head>
 <body>
 
-  <nav>
-    <a href="index.html" class="nav-logo">Snip It!</a>
-    <a href="index.html" style="font-size:14px;font-weight:600;color:#888;">Back to home</a>
-  </nav>
+<nav>
+  <a href="index.html" class="nav-logo">✂ Snip It!</a>
+  <ul class="nav-links">
+    <li><a href="index.html#screenshots">Features</a></li>
+    <li><a href="index.html#how">How it works</a></li>
+    <li><a href="support.html">Support</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+    <li><a href="https://snipit.app" class="btn-primary">Get the App</a></li>
+  </ul>
+</nav>
 
-  <div class="content">
-    <div class="page-label">Legal</div>
-    <h1>Terms of Service</h1>
-    <div class="updated">Last updated: May 14, 2026</div>
+<div class="page-hero">
+  <div class="page-eyebrow">Legal</div>
+  <h1 class="page-title">Terms of Service</h1>
+  <p class="page-date">Last updated: May 2026</p>
+</div>
 
-    <div class="highlight">
-      <p>By using Snip It! you agree to these terms. They are written in plain language — no legal tricks. If something is unclear, email us at <a href="mailto:hello@snipit.app">hello@snipit.app</a>.</p>
-    </div>
+<div class="content-wrap">
 
-    <h2>Using the app</h2>
-    <p>Snip It! is a personal coupon wallet. You may use it to store, manage and redeem coupons for your own personal, non-commercial use. You must be at least 13 years old to create an account.</p>
-    <p>You are responsible for keeping your account credentials secure. Do not share your password with anyone.</p>
+  <h2>Welcome to Snip It!</h2>
+  <p>These Terms of Service ("Terms") govern your use of the Snip It! mobile application and website (collectively, the "Service") operated by Snip It! ("we", "us", or "our"). By creating an account or using the Service, you agree to these Terms. Please read them — we've written them in plain language.</p>
 
-    <h2>What you can and cannot do</h2>
-    <p>You can:</p>
-    <ul>
-      <li>Store and organise your personal coupons</li>
-      <li>Scan physical coupons using the camera feature</li>
-      <li>Share individual coupons with friends and family</li>
-      <li>Use the app across multiple personal devices</li>
-    </ul>
-    <p>You cannot:</p>
-    <ul>
-      <li>Use the app to store or distribute counterfeit or fraudulent coupons</li>
-      <li>Attempt to reverse engineer, copy or redistribute any part of the app</li>
-      <li>Use the app in a way that violates any applicable law or regulation</li>
-      <li>Create multiple accounts to circumvent usage limits</li>
-    </ul>
+  <h2>Eligibility</h2>
+  <p>You must be at least 13 years old to use Snip It!. By using the Service, you confirm that you are 13 or older. If you are under 18, you should have permission from a parent or guardian.</p>
+  <p>You may not use the Service if you have previously had an account terminated by us for violating these Terms.</p>
 
-    <h2>Coupon validity</h2>
-    <p>Snip It! organises and presents your coupons. We do not verify that any coupon is valid, accepted by the retailer, or still redeemable. It is your responsibility to check the terms and conditions of each coupon with the relevant retailer before attempting to use it.</p>
+  <h2>Your Account</h2>
+  <ul>
+    <li>You are responsible for keeping your login credentials secure.</li>
+    <li>You are responsible for all activity that occurs under your account.</li>
+    <li>If you believe your account has been compromised, contact us immediately at <a href="mailto:support@snipit.app" class="email-link">support@snipit.app</a>.</li>
+    <li>You may not share your account with others or create multiple accounts for the purpose of circumventing any restrictions.</li>
+  </ul>
 
-    <h2>AI scanning</h2>
-    <p>The coupon scanning feature uses artificial intelligence to read coupon details from photos. This is not perfect. Details extracted by the AI — including expiry dates, discount values and barcode numbers — should be verified against the original coupon before use. We are not liable for errors in AI-extracted information.</p>
+  <h2>How You May Use the App</h2>
+  <p>Snip It! is designed to help you store, manage and redeem your personal coupons, vouchers and store credits. You agree to use it only for lawful, personal purposes.</p>
+  <p>You must not:</p>
+  <ul>
+    <li>Use the Service to store or redeem coupons that you did not obtain legitimately.</li>
+    <li>Attempt to scan, copy or duplicate coupons to use them more than their intended number of times.</li>
+    <li>Reverse-engineer, decompile or attempt to extract the source code of the app.</li>
+    <li>Use the Service in any way that could damage, disable or overburden our infrastructure.</li>
+    <li>Attempt to gain unauthorised access to other users' accounts or data.</li>
+  </ul>
 
-    <h2>Sharing feature</h2>
-    <p>When you share a coupon using the in-app sharing feature, a copy of that coupon's details is stored on our servers and made accessible to anyone with the unique link. Share responsibly. Do not share coupons in a way that violates the terms of the coupon issuer.</p>
-
-    <h2>Offers tab</h2>
-    <p>The Offers tab may contain deals and promotions from partner businesses. These are clearly labelled. We are not responsible for the accuracy, availability or terms of third-party offers. Any transaction between you and a business advertised in the Offers tab is solely between you and that business.</p>
-
-    <h2>Availability</h2>
-    <p>We aim to keep Snip It! running reliably, but we do not guarantee uninterrupted access. We may update, change or temporarily suspend the service at any time. We will try to give advance notice of significant changes where possible.</p>
-
-    <h2>Intellectual property</h2>
-    <p>The Snip It! name, logo and app design are our intellectual property. You may not use them without our written permission. The content you add to the app — your coupon photos and data — remains yours.</p>
-
-    <h2>Limitation of liability</h2>
-    <p>Snip It! is provided "as is". To the maximum extent permitted by law, we are not liable for any loss or damage arising from your use of the app, including but not limited to missed savings, inaccurate coupon data, or service interruptions.</p>
-
-    <h2>Changes to these terms</h2>
-    <p>We may update these Terms from time to time. We will update the date at the top of this page when we do. Continued use of the app after changes are posted means you accept the updated terms.</p>
-
-    <h2>Contact</h2>
-    <p>If you have any questions about these Terms, contact us at <a href="mailto:hello@snipit.app">hello@snipit.app</a>.</p>
+  <h2>AI Scanning — Important Disclaimer</h2>
+  <div class="highlight-box">
+    <p>Snip It! uses artificial intelligence to extract information from coupon photos. While our AI is accurate in the vast majority of cases, it is not perfect. Extracted details — including discount amounts, expiry dates and barcodes — may occasionally contain errors.</p>
   </div>
+  <p>You are responsible for verifying coupon details with the retailer before relying on them for a purchase. We are not liable for any loss resulting from inaccurate AI-extracted information. If you notice an extraction error, you can manually edit the coupon details within the app.</p>
 
-  <footer>
-    <a href="index.html" class="footer-logo">Snip It!</a>
-    <div class="footer-copy">&copy; 2026 Snip It! All rights reserved.</div>
-  </footer>
+  <h2>Your Content</h2>
+  <p>You own your coupon data. By uploading photos to the Service, you grant us a limited licence to process those photos through our AI scanning service for the sole purpose of extracting coupon information for you. Photos are not retained after processing.</p>
+  <p>You can delete your content and your account at any time from within the app.</p>
+
+  <h2>Availability and Uptime</h2>
+  <p>We aim to keep Snip It! available at all times, but we do not guarantee uninterrupted service. We may perform maintenance, updates or repairs that result in temporary downtime. We are not liable for any inconvenience caused by planned or unplanned outages.</p>
+  <p>We reserve the right to modify, suspend or discontinue the Service (or any part of it) at any time, with reasonable notice where possible.</p>
+
+  <h2>Intellectual Property</h2>
+  <p>All rights in the Snip It! app, website, logo, branding and technology are owned by or licensed to us. These Terms do not grant you any rights to use our trademarks, logos or brand features without our prior written consent.</p>
+  <p>You may not reproduce, distribute or create derivative works from the Service or its content without our explicit permission.</p>
+
+  <h2>Limitation of Liability</h2>
+  <p>To the maximum extent permitted by applicable law, Snip It! and its owners, employees and agents shall not be liable for any indirect, incidental, special, consequential or punitive damages arising from your use of (or inability to use) the Service.</p>
+  <p>This includes, but is not limited to, losses resulting from: inaccurate AI scanning results, missed coupon expiry dates, data loss, or service outages.</p>
+  <p>Our total liability to you for any claim arising from the Service shall not exceed the amount you have paid us in the 12 months preceding the claim (which, given the Service is currently free, would be zero).</p>
+
+  <h2>Termination</h2>
+  <p>You may stop using the Service and delete your account at any time. We may suspend or terminate your access if you violate these Terms. On termination, your right to use the Service ends and your data will be deleted in accordance with our Privacy Policy.</p>
+
+  <h2>Governing Law</h2>
+  <p>These Terms are governed by the laws of Iceland. Any disputes shall be subject to the exclusive jurisdiction of the courts of Iceland, unless applicable consumer protection laws in your country provide you with additional rights.</p>
+
+  <h2>Changes to These Terms</h2>
+  <p>We may update these Terms from time to time. When we make material changes, we will update the "Last updated" date and notify you within the app. Continued use of the Service after changes take effect constitutes your acceptance of the updated Terms.</p>
+
+  <h2>Contact Us</h2>
+  <p>If you have any questions about these Terms, please contact us at:</p>
+  <p>Email: <a href="mailto:support@snipit.app" class="email-link">support@snipit.app</a></p>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">✂ Snip It!</a>
+    <ul class="footer-links">
+      <li><a href="index.html#screenshots">Features</a></li>
+      <li><a href="support.html">Support</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 Snip It!</span>
+  </div>
+</footer>
 
 </body>
 </html>
