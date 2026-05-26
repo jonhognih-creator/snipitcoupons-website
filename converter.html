@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>File Converter</title>
+
+  <!-- PWA / Add to Home Screen -->
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Converter"/>
+  <meta name="theme-color" content="#0d0d1a"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d1a;
+      --card: #13131f;
+      --border: #2a2a3e;
+      --orange: #FF6B35;
+      --red: #FF4B4B;
+      --grad: linear-gradient(135deg, #FF6B35, #FF4B4B);
+      --muted: #888;
+      --text: #e8e8f0;
+      --font: 'Nunito', sans-serif;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bot: env(safe-area-inset-bottom, 0px);
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.5;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100dvh;
+      padding: calc(var(--safe-top) + 1rem) 1rem calc(var(--safe-bot) + 1rem);
+    }
+
+    /* ── header ── */
+    header {
+      text-align: center;
+      padding: 1.25rem 0 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .app-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+
+    .app-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    /* ── card ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* ── drop zone ── */
+    .drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: 18px;
+      padding: 2.25rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .drop-zone.drag-over,
+    .drop-zone:active {
+      border-color: var(--orange);
+      background: rgba(255,107,53,0.06);
+    }
+
+    .drop-icon { font-size: 3rem; display: block; margin-bottom: 0.6rem; }
+
+    .drop-text {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .drop-hint {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── file info ── */
+    .file-info {
+      display: none;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.8rem 1rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      flex-shrink: 0;
+    }
+
+    .file-info.visible { display: flex; }
+
+    .file-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+    .file-meta { flex: 1; min-width: 0; }
+
+    .file-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .file-size { font-size: 0.78rem; color: var(--muted); }
+
+    .reset-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: 0.2rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    /* ── format chooser ── */
+    .controls {
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      flex: 1;
+    }
+
+    .controls.visible { display: flex; }
+
+    .label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.1rem;
+    }
+
+    .format-row {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .fmt-btn {
+      padding: 0.55rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .fmt-btn.selected {
+      background: var(--grad);
+      border-color: transparent;
+      color: #fff;
+    }
+
+    /* ── convert button ── */
+    .convert-btn {
+      margin-top: auto;
+      width: 100%;
+      padding: 1rem;
+      background: var(--grad);
+      color: #fff;
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: 1.05rem;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      box-shadow: 0 4px 20px rgba(255,107,53,0.3);
+    }
+
+    .convert-btn:active { transform: scale(0.98); opacity: 0.9; }
+    .convert-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+    /* ── progress ── */
+    .progress-wrap {
+      display: none;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .progress-wrap.visible { display: flex; }
+
+    .progress-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--grad);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+
+    .progress-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* ── error ── */
+    .error-box {
+      display: none;
+      padding: 0.75rem 1rem;
+      background: rgba(255,75,75,0.1);
+      border: 1px solid rgba(255,75,75,0.3);
+      border-radius: 12px;
+      color: #ff7070;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .error-box.visible { display: block; }
+
+    /* ── success toast ── */
+    .toast {
+      position: fixed;
+      bottom: calc(var(--safe-bot) + 1.5rem);
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1a2e1a;
+      border: 1px solid #2d5a2d;
+      color: #7ddb7d;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 0.65rem 1.4rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="app-title">⚡ File Converter</div>
+  <div class="app-sub">Everything stays on your device</div>
+</header>
+
+<div class="card">
+
+  <div class="drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Choose a file">
+    <span class="drop-icon">📂</span>
+    <p class="drop-text">Tap to choose a file</p>
+    <p class="drop-hint">
+      Images: JPG · PNG · WebP · GIF<br/>
+      Documents: PDF · DOCX · TXT
+    </p>
+    <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.webp,.gif,.pdf,.docx,.doc,.txt"
+           style="display:none" aria-hidden="true"/>
+  </div>
+
+  <div class="file-info" id="fileInfo">
+    <span class="file-icon" id="fileIcon">📄</span>
+    <div class="file-meta">
+      <div class="file-name" id="fileName"></div>
+      <div class="file-size" id="fileSize"></div>
+    </div>
+    <button class="reset-btn" id="resetBtn" aria-label="Remove file">✕</button>
+  </div>
+
+  <div class="error-box" id="errorBox"></div>
+
+  <div class="controls" id="controls">
+    <div>
+      <div class="label">Convert to</div>
+      <div class="format-row" id="formatRow"></div>
+    </div>
+
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-label" id="progressLabel">Converting…</div>
+    </div>
+
+    <button class="convert-btn" id="convertBtn">Convert &amp; Download</button>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">✓ File downloaded</div>
+
+<script>
+(function () {
+  var file = null, fileType = null;
+
+  var dropZone    = document.getElementById('dropZone');
+  var fileInput   = document.getElementById('fileInput');
+  var fileInfo    = document.getElementById('fileInfo');
+  var fileIcon    = document.getElementById('fileIcon');
+  var fileNameEl  = document.getElementById('fileName');
+  var fileSizeEl  = document.getElementById('fileSize');
+  var resetBtn    = document.getElementById('resetBtn');
+  var errorBox    = document.getElementById('errorBox');
+  var controls    = document.getElementById('controls');
+  var formatRow   = document.getElementById('formatRow');
+  var convertBtn  = document.getElementById('convertBtn');
+  var progressWrap= document.getElementById('progressWrap');
+  var progressFill= document.getElementById('progressFill');
+  var progressLbl = document.getElementById('progressLabel');
+  var toast       = document.getElementById('toast');
+
+  /* ── file pick ── */
+  dropZone.addEventListener('click', function () { fileInput.click(); });
+  dropZone.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+  });
+  dropZone.addEventListener('dragover', function (e) { e.preventDefault(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragleave', function () { dropZone.classList.remove('drag-over'); });
+  dropZone.addEventListener('drop', function (e) {
+    e.preventDefault(); dropZone.classList.remove('drag-over');
+    if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', function (e) {
+    if (e.target.files[0]) handleFile(e.target.files[0]);
+    e.target.value = '';
+  });
+  resetBtn.addEventListener('click', resetAll);
+
+  function handleFile(f) {
+    var ext = f.name.split('.').pop().toLowerCase();
+    if (ext === 'jpeg') ext = 'jpg';
+
+    if (['jpg','png','webp','gif'].indexOf(ext) !== -1 || f.type.startsWith('image/')) {
+      fileType = 'image';
+    } else if (ext === 'pdf') {
+      fileType = 'pdf';
+    } else if (ext === 'docx' || ext === 'doc') {
+      fileType = 'docx';
+    } else if (ext === 'txt') {
+      fileType = 'txt';
+    } else {
+      showErr('Unsupported file. Use JPG, PNG, WebP, GIF, PDF, DOCX, or TXT.');
+      return;
+    }
+
+    file = f;
+    clearErr();
+    fileNameEl.textContent = f.name;
+    fileSizeEl.textContent = fmtBytes(f.size);
+    fileIcon.textContent = fileType === 'image' ? '🖼️' : '📄';
+    fileInfo.classList.add('visible');
+    buildFormats(ext);
+    controls.classList.add('visible');
+    progressWrap.classList.remove('visible');
+    convertBtn.disabled = false;
+  }
+
+  function buildFormats(ext) {
+    formatRow.innerHTML = '';
+    var formats = fileType === 'image'
+      ? ['jpg','png','webp'].filter(function (f) { return f !== ext; })
+      : fileType === 'pdf'  ? ['txt']
+      : fileType === 'docx' ? ['txt','pdf']
+      : /* txt */             ['pdf'];
+
+    formats.forEach(function (fmt, i) {
+      var btn = document.createElement('button');
+      btn.className = 'fmt-btn' + (i === 0 ? ' selected' : '');
+      btn.textContent = '.' + fmt.toUpperCase();
+      btn.dataset.format = fmt;
+      btn.type = 'button';
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.fmt-btn').forEach(function (b) { b.classList.remove('selected'); });
+        btn.classList.add('selected');
+      });
+      formatRow.appendChild(btn);
+    });
+
+    convertBtn.onclick = function () {
+      var sel = document.querySelector('.fmt-btn.selected');
+      if (sel) doConvert(sel.dataset.format);
+    };
+  }
+
+  function doConvert(fmt) {
+    clearErr();
+    convertBtn.disabled = true;
+    progressWrap.classList.add('visible');
+    setProgress(10, 'Starting…');
+
+    if (fileType === 'image')                          convertImage(fmt);
+    else if (fileType === 'pdf'  && fmt === 'txt')     pdfToTxt();
+    else if (fileType === 'docx' && fmt === 'txt')     docxToTxt();
+    else if (fileType === 'docx' && fmt === 'pdf')     docxToPdf();
+    else if (fileType === 'txt'  && fmt === 'pdf')     txtToPdf();
+  }
+
+  /* ── image conversion (offline) ── */
+  function convertImage(fmt) {
+    setProgress(30, 'Loading image…');
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var img = new Image();
+      img.onload = function () {
+        setProgress(65, 'Rendering…');
+        var canvas = document.createElement('canvas');
+        canvas.width = img.width; canvas.height = img.height;
+        var ctx = canvas.getContext('2d');
+        if (fmt === 'jpg') { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, canvas.width, canvas.height); }
+        ctx.drawImage(img, 0, 0);
+        setProgress(88, 'Preparing download…');
+        canvas.toBlob(function (blob) {
+          finish(blob, baseName(file.name) + '.' + fmt);
+        }, fmt === 'jpg' ? 'image/jpeg' : 'image/' + fmt, 0.92);
+      };
+      img.onerror = function () { showErr('Could not read image.'); resetBtn2(); };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  /* ── pdf → txt (needs internet first use) ── */
+  function pdfToTxt() {
+    setProgress(20, 'Loading PDF reader…');
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js', function () {
+      var lib = window['pdfjs-dist/build/pdf'] || window.pdfjsLib;
+      if (!lib) { showErr('Could not load PDF.js. Check your connection.'); resetBtn2(); return; }
+      lib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        setProgress(40, 'Parsing PDF…');
+        lib.getDocument({ data: e.target.result }).promise.then(function (pdf) {
+          var total = pdf.numPages, texts = [];
+          function next(n) {
+            if (n > total) {
+              finish(new Blob([texts.join('\n\n')], { type: 'text/plain' }), baseName(file.name) + '.txt');
+              return;
+            }
+            setProgress(40 + Math.round(n / total * 55), 'Page ' + n + ' of ' + total + '…');
+            pdf.getPage(n).then(function (p) { return p.getTextContent(); }).then(function (c) {
+              texts.push(c.items.map(function (i) { return i.str; }).join(' '));
+              next(n + 1);
+            });
+          }
+          next(1);
+        }).catch(function (err) { showErr('PDF error: ' + err.message); resetBtn2(); });
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
+  /* ── docx → txt (needs internet first use) ── */
+  function docxToTxt() {
+    setProgress(20, 'Loading DOCX reader…');
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js', function () {
+      if (!window.mammoth) { showErr('Could not load mammoth.js. Check your connection.'); resetBtn2(); return; }
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        setProgress(55, 'Extracting text…');
+        mammoth.extractRawText({ arrayBuffer: e.target.result }).then(function (r) {
+          finish(new Blob([r.value], { type: 'text/plain' }), baseName(file.name) + '.txt');
+        }).catch(function (err) { showErr('DOCX error: ' + err.message); resetBtn2(); });
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
+  /* ── docx → pdf (needs internet first use) ── */
+  function docxToPdf() {
+    setProgress(15, 'Loading DOCX reader…');
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js', function () {
+      if (!window.mammoth) { showErr('Could not load mammoth.js. Check your connection.'); resetBtn2(); return; }
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        setProgress(40, 'Extracting text…');
+        mammoth.extractRawText({ arrayBuffer: e.target.result }).then(function (r) {
+          setProgress(60, 'Loading PDF writer…');
+          loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js', function () {
+            if (!window.jspdf) { showErr('Could not load jsPDF. Check your connection.'); resetBtn2(); return; }
+            setProgress(80, 'Generating PDF…');
+            writePdf(r.value, baseName(file.name) + '.pdf');
+          });
+        }).catch(function (err) { showErr('DOCX error: ' + err.message); resetBtn2(); });
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
+  /* ── txt → pdf (needs internet first use) ── */
+  function txtToPdf() {
+    setProgress(20, 'Loading PDF writer…');
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js', function () {
+      if (!window.jspdf) { showErr('Could not load jsPDF. Check your connection.'); resetBtn2(); return; }
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        setProgress(70, 'Generating PDF…');
+        writePdf(e.target.result, baseName(file.name) + '.pdf');
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  function writePdf(text, filename) {
+    var doc = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
+    var margin = 15, lineH = 7, maxY = doc.internal.pageSize.getHeight() - margin;
+    var lines = doc.splitTextToSize(text, 180);
+    var y = 20;
+    lines.forEach(function (line) {
+      if (y > maxY) { doc.addPage(); y = 20; }
+      doc.text(line, margin, y);
+      y += lineH;
+    });
+    setProgress(100, 'Done!');
+    doc.save(filename);
+    showToast();
+    setTimeout(function () { convertBtn.disabled = false; }, 2000);
+  }
+
+  /* ── helpers ── */
+  function finish(blob, filename) {
+    setProgress(100, 'Done!');
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = filename; a.click();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+    showToast();
+    setTimeout(function () { convertBtn.disabled = false; }, 2000);
+  }
+
+  function loadScript(src, cb) {
+    if (document.querySelector('script[src="' + src + '"]')) { cb(); return; }
+    var s = document.createElement('script');
+    s.src = src; s.onload = cb;
+    s.onerror = function () { cb(); };
+    document.head.appendChild(s);
+  }
+
+  function setProgress(pct, msg) {
+    progressFill.style.width = pct + '%';
+    progressLbl.textContent = msg;
+  }
+
+  function baseName(n) { return n.replace(/\.[^.]+$/, ''); }
+
+  function fmtBytes(b) {
+    if (b < 1024) return b + ' B';
+    if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+    return (b / 1048576).toFixed(1) + ' MB';
+  }
+
+  function showErr(msg) { errorBox.textContent = msg; errorBox.classList.add('visible'); }
+  function clearErr()   { errorBox.classList.remove('visible'); }
+
+  function resetBtn2() {
+    progressWrap.classList.remove('visible');
+    convertBtn.disabled = false;
+  }
+
+  function resetAll() {
+    file = null; fileType = null;
+    fileInfo.classList.remove('visible');
+    controls.classList.remove('visible');
+    progressWrap.classList.remove('visible');
+    clearErr();
+    setProgress(0, '');
+  }
+
+  var toastTimer;
+  function showToast() {
+    clearTimeout(toastTimer);
+    toast.classList.add('show');
+    toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 2500);
+  }
+}());
+</script>
+</body>
+</html>
