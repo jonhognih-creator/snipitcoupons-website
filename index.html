@@ -567,6 +567,146 @@
       font-size: 0.85rem;
     }
 
+    /* ── FILE CONVERTER ── */
+    #converter { background: #0b0b17; }
+
+    .converter-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 2.5rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: 16px;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      user-select: none;
+    }
+
+    .drop-zone:hover, .drop-zone.drag-over {
+      border-color: var(--orange);
+      background: rgba(255,107,53,0.04);
+    }
+
+    .drop-icon { font-size: 2.8rem; margin-bottom: 0.75rem; }
+
+    .drop-text {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .drop-hint { font-size: 0.82rem; color: var(--muted); }
+
+    .conv-file-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+      padding: 0.85rem 1.1rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .conv-filename {
+      font-weight: 700;
+      font-size: 0.95rem;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .conv-filesize { font-size: 0.82rem; color: var(--muted); flex-shrink: 0; }
+
+    .conv-controls { margin-top: 1.5rem; }
+
+    .conv-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .conv-formats { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+
+    .conv-format-btn {
+      padding: 0.45rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--body-font);
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .conv-format-btn:hover { border-color: var(--orange); color: var(--orange); }
+
+    .conv-format-btn.selected {
+      background: var(--grad);
+      border-color: transparent;
+      color: #fff;
+    }
+
+    .conv-btn {
+      width: 100%;
+      padding: 0.9rem;
+      font-size: 1rem;
+      font-weight: 800;
+      border-radius: 14px;
+    }
+
+    .conv-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .conv-progress { margin-top: 1.25rem; }
+
+    .conv-progress-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 0.6rem;
+    }
+
+    .conv-progress-fill {
+      height: 100%;
+      background: var(--grad);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+
+    .conv-status { font-size: 0.88rem; color: var(--muted); text-align: center; }
+
+    .conv-error {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255,75,75,0.1);
+      border: 1px solid rgba(255,75,75,0.3);
+      border-radius: 10px;
+      color: #ff7070;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 480px) {
+      .converter-box { padding: 1.5rem 1rem; }
+      .drop-zone { padding: 2rem 1rem; }
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .features-grid, .steps-grid {
@@ -608,6 +748,7 @@
   <ul class="nav-links">
     <li><a href="#screenshots">Features</a></li>
     <li><a href="#how">How it works</a></li>
+    <li><a href="#converter">Converter</a></li>
     <li><a href="support.html">Support</a></li>
     <li><a href="privacy.html">Privacy</a></li>
     <li><a href="https://snipit.app" class="btn-primary">Get the App</a></li>
@@ -727,6 +868,42 @@
   </div>
 </section>
 
+<!-- ── FILE CONVERTER ── -->
+<section id="converter">
+  <div class="section-inner">
+    <span class="section-label">Free Tool</span>
+    <h2 class="section-title">File Converter</h2>
+    <p class="section-sub">Convert images &amp; documents instantly in your browser — nothing is uploaded, everything stays on your device.</p>
+
+    <div class="converter-box">
+      <div class="drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Choose a file to convert">
+        <div class="drop-icon">📁</div>
+        <p class="drop-text">Tap to choose a file</p>
+        <p class="drop-hint">Images: JPG · PNG · WebP · GIF &nbsp;|&nbsp; Docs: PDF · DOCX · TXT</p>
+        <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.webp,.gif,.pdf,.docx,.doc,.txt" style="display:none" aria-hidden="true"/>
+      </div>
+
+      <div class="conv-file-info" id="fileInfo" style="display:none" aria-live="polite">
+        <span class="conv-filename" id="fileName"></span>
+        <span class="conv-filesize" id="fileSize"></span>
+      </div>
+
+      <div class="conv-controls" id="convControls" style="display:none">
+        <label class="conv-label">Convert to:</label>
+        <div class="conv-formats" id="formatOptions" role="group" aria-label="Output format"></div>
+        <button class="btn-primary conv-btn" id="convertBtn">Convert &amp; Download</button>
+      </div>
+
+      <div class="conv-progress" id="convProgress" style="display:none" aria-live="polite">
+        <div class="conv-progress-bar"><div class="conv-progress-fill" id="progressFill"></div></div>
+        <p class="conv-status" id="convStatus">Converting…</p>
+      </div>
+
+      <div class="conv-error" id="convError" style="display:none" role="alert"></div>
+    </div>
+  </div>
+</section>
+
 <!-- ── CTA ── -->
 <section id="cta">
   <div class="cta-box">
@@ -750,5 +927,302 @@
   </div>
 </footer>
 
+
+<script>
+(function () {
+  var currentFile = null;
+  var currentType = null;
+
+  var dropZone     = document.getElementById('dropZone');
+  var fileInput    = document.getElementById('fileInput');
+  var fileInfo     = document.getElementById('fileInfo');
+  var fileNameEl   = document.getElementById('fileName');
+  var fileSizeEl   = document.getElementById('fileSize');
+  var convControls = document.getElementById('convControls');
+  var formatOptions= document.getElementById('formatOptions');
+  var convertBtn   = document.getElementById('convertBtn');
+  var convProgress = document.getElementById('convProgress');
+  var progressFill = document.getElementById('progressFill');
+  var convStatus   = document.getElementById('convStatus');
+  var convError    = document.getElementById('convError');
+
+  dropZone.addEventListener('click', function () { fileInput.click(); });
+  dropZone.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+  });
+
+  dropZone.addEventListener('dragover', function (e) {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+  });
+  dropZone.addEventListener('dragleave', function () { dropZone.classList.remove('drag-over'); });
+  dropZone.addEventListener('drop', function (e) {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    var file = e.dataTransfer.files[0];
+    if (file) handleFile(file);
+  });
+
+  fileInput.addEventListener('change', function (e) {
+    if (e.target.files[0]) handleFile(e.target.files[0]);
+    e.target.value = '';
+  });
+
+  function handleFile(file) {
+    var ext = file.name.split('.').pop().toLowerCase();
+    if (ext === 'jpeg') ext = 'jpg';
+
+    if (['jpg','png','webp','gif'].indexOf(ext) !== -1 || file.type.startsWith('image/')) {
+      currentType = 'image';
+    } else if (ext === 'pdf' || file.type === 'application/pdf') {
+      currentType = 'pdf';
+    } else if (ext === 'docx' || ext === 'doc') {
+      currentType = 'docx';
+    } else if (ext === 'txt' || file.type === 'text/plain') {
+      currentType = 'txt';
+    } else {
+      showError('Unsupported file type. Use JPG, PNG, WebP, GIF, PDF, DOCX, or TXT.');
+      return;
+    }
+
+    currentFile = file;
+    clearError();
+    fileNameEl.textContent = file.name;
+    fileSizeEl.textContent = fmtBytes(file.size);
+    fileInfo.style.display = 'flex';
+    buildFormatOptions(ext);
+    convControls.style.display = 'block';
+    convProgress.style.display = 'none';
+    convertBtn.disabled = false;
+  }
+
+  function buildFormatOptions(ext) {
+    formatOptions.innerHTML = '';
+    var formats = [];
+
+    if (currentType === 'image') {
+      var all = ['jpg','png','webp'];
+      formats = all.filter(function (f) { return f !== ext; });
+    } else if (currentType === 'pdf') {
+      formats = ['txt'];
+    } else if (currentType === 'docx') {
+      formats = ['txt','pdf'];
+    } else if (currentType === 'txt') {
+      formats = ['pdf'];
+    }
+
+    formats.forEach(function (fmt, i) {
+      var btn = document.createElement('button');
+      btn.className = 'conv-format-btn' + (i === 0 ? ' selected' : '');
+      btn.textContent = '.' + fmt.toUpperCase();
+      btn.dataset.format = fmt;
+      btn.type = 'button';
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.conv-format-btn').forEach(function (b) { b.classList.remove('selected'); });
+        btn.classList.add('selected');
+      });
+      formatOptions.appendChild(btn);
+    });
+
+    convertBtn.onclick = function () {
+      var sel = document.querySelector('.conv-format-btn.selected');
+      if (sel) doConvert(sel.dataset.format);
+    };
+  }
+
+  function doConvert(targetFmt) {
+    clearError();
+    convertBtn.disabled = true;
+    convProgress.style.display = 'block';
+    setProgress(10, 'Starting…');
+
+    if (currentType === 'image')                           convertImage(targetFmt);
+    else if (currentType === 'pdf' && targetFmt === 'txt') convertPdfToTxt();
+    else if (currentType === 'docx' && targetFmt === 'txt') convertDocxToTxt();
+    else if (currentType === 'docx' && targetFmt === 'pdf') convertDocxToPdf();
+    else if (currentType === 'txt'  && targetFmt === 'pdf') convertTxtToPdf();
+  }
+
+  /* ── image ── */
+  function convertImage(fmt) {
+    setProgress(30, 'Loading image…');
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var img = new Image();
+      img.onload = function () {
+        setProgress(60, 'Rendering…');
+        var canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext('2d');
+        if (fmt === 'jpg') { ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, canvas.width, canvas.height); }
+        ctx.drawImage(img, 0, 0);
+        var mime = fmt === 'jpg' ? 'image/jpeg' : 'image/' + fmt;
+        setProgress(85, 'Preparing download…');
+        canvas.toBlob(function (blob) {
+          setProgress(100, 'Done!');
+          dlBlob(blob, baseName(currentFile.name) + '.' + fmt);
+          resetDelay();
+        }, mime, 0.92);
+      };
+      img.onerror = function () { showError('Could not read image.'); resetControls(); };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(currentFile);
+  }
+
+  /* ── pdf → txt ── */
+  function convertPdfToTxt() {
+    setProgress(20, 'Loading PDF reader…');
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var buf = e.target.result;
+      loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js', function () {
+        var lib = window['pdfjs-dist/build/pdf'] || window.pdfjsLib;
+        if (!lib) { showError('Could not load PDF.js.'); resetControls(); return; }
+        lib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        setProgress(40, 'Parsing PDF…');
+        lib.getDocument({ data: buf }).promise.then(function (pdf) {
+          var pages = pdf.numPages;
+          var texts = [];
+          var done = 0;
+          function nextPage(n) {
+            if (n > pages) {
+              var blob = new Blob([texts.join('\n\n')], { type: 'text/plain' });
+              setProgress(100, 'Done!');
+              dlBlob(blob, baseName(currentFile.name) + '.txt');
+              resetDelay();
+              return;
+            }
+            setProgress(40 + Math.round((n / pages) * 55), 'Page ' + n + ' of ' + pages + '…');
+            pdf.getPage(n).then(function (page) {
+              return page.getTextContent();
+            }).then(function (content) {
+              texts.push(content.items.map(function (i) { return i.str; }).join(' '));
+              nextPage(n + 1);
+            });
+          }
+          nextPage(1);
+        }).catch(function (err) { showError('PDF error: ' + err.message); resetControls(); });
+      });
+    };
+    reader.readAsArrayBuffer(currentFile);
+  }
+
+  /* ── docx → txt ── */
+  function convertDocxToTxt() {
+    setProgress(20, 'Loading DOCX reader…');
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var buf = e.target.result;
+      loadScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js', function () {
+        if (!window.mammoth) { showError('Could not load mammoth.js.'); resetControls(); return; }
+        setProgress(55, 'Extracting text…');
+        mammoth.extractRawText({ arrayBuffer: buf }).then(function (result) {
+          var blob = new Blob([result.value], { type: 'text/plain' });
+          setProgress(100, 'Done!');
+          dlBlob(blob, baseName(currentFile.name) + '.txt');
+          resetDelay();
+        }).catch(function (err) { showError('DOCX error: ' + err.message); resetControls(); });
+      });
+    };
+    reader.readAsArrayBuffer(currentFile);
+  }
+
+  /* ── docx → pdf ── */
+  function convertDocxToPdf() {
+    setProgress(15, 'Loading DOCX reader…');
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var buf = e.target.result;
+      loadScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js', function () {
+        if (!window.mammoth) { showError('Could not load mammoth.js.'); resetControls(); return; }
+        setProgress(40, 'Extracting text…');
+        mammoth.extractRawText({ arrayBuffer: buf }).then(function (result) {
+          setProgress(60, 'Loading PDF writer…');
+          loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js', function () {
+            if (!window.jspdf) { showError('Could not load jsPDF.'); resetControls(); return; }
+            setProgress(80, 'Generating PDF…');
+            textToPdfDownload(result.value, baseName(currentFile.name) + '.pdf');
+          });
+        }).catch(function (err) { showError('DOCX error: ' + err.message); resetControls(); });
+      });
+    };
+    reader.readAsArrayBuffer(currentFile);
+  }
+
+  /* ── txt → pdf ── */
+  function convertTxtToPdf() {
+    setProgress(20, 'Loading PDF writer…');
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js', function () {
+        if (!window.jspdf) { showError('Could not load jsPDF.'); resetControls(); return; }
+        setProgress(70, 'Generating PDF…');
+        textToPdfDownload(e.target.result, baseName(currentFile.name) + '.pdf');
+      });
+    };
+    reader.readAsText(currentFile);
+  }
+
+  function textToPdfDownload(text, filename) {
+    var jsPDF = window.jspdf.jsPDF;
+    var doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    var margin = 15, lineH = 7, maxY = doc.internal.pageSize.getHeight() - margin;
+    var lines = doc.splitTextToSize(text, 180);
+    var y = 20;
+    lines.forEach(function (line) {
+      if (y > maxY) { doc.addPage(); y = 20; }
+      doc.text(line, margin, y);
+      y += lineH;
+    });
+    setProgress(100, 'Done!');
+    doc.save(filename);
+    resetDelay();
+  }
+
+  /* ── helpers ── */
+  function loadScript(src, cb) {
+    if (document.querySelector('script[src="' + src + '"]')) { cb(); return; }
+    var s = document.createElement('script');
+    s.src = src;
+    s.onload = cb;
+    s.onerror = function () { cb(); };
+    document.head.appendChild(s);
+  }
+
+  function setProgress(pct, msg) {
+    progressFill.style.width = pct + '%';
+    convStatus.textContent = msg;
+  }
+
+  function dlBlob(blob, filename) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = filename; a.click();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+  }
+
+  function baseName(name) { return name.replace(/\.[^.]+$/, ''); }
+
+  function fmtBytes(b) {
+    if (b < 1024) return b + ' B';
+    if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+    return (b / 1048576).toFixed(1) + ' MB';
+  }
+
+  function showError(msg) { convError.textContent = msg; convError.style.display = 'block'; }
+  function clearError()   { convError.style.display = 'none'; }
+
+  function resetDelay() {
+    setTimeout(function () { convertBtn.disabled = false; }, 2000);
+  }
+
+  function resetControls() {
+    convProgress.style.display = 'none';
+    convertBtn.disabled = false;
+  }
+}());
+</script>
 </body>
 </html>
