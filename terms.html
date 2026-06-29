@@ -11,22 +11,26 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0d0d1a;
-      --card-bg: #13131f;
-      --border: #2a2a3e;
-      --grad: linear-gradient(135deg, #FF6B35, #FF4B4B);
-      --orange: #FF6B35;
-      --muted: #888;
-      --text: #e8e8f0;
+      --cream:      #FBF6EC;
+      --cream-dark: #F4ECDD;
+      --card:       #FFFFFF;
+      --coral:      #E27258;
+      --coral-soft: rgba(226,114,88,0.1);
+      --coral-grad: linear-gradient(100deg, #E27258 0%, #E8964E 55%, #E8A23D 100%);
+      --ink:        #2A2018;
+      --ink-soft:   #7A6B5C;
+      --ink-faint:  #B5A595;
+      --line:       rgba(42,32,24,0.09);
+      --line2:      rgba(42,32,24,0.15);
       --heading-font: 'Fredoka One', cursive;
-      --body-font: 'Nunito', sans-serif;
+      --body-font:    'Nunito', sans-serif;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
-      color: var(--text);
+      background: var(--cream);
+      color: var(--ink);
       font-family: var(--body-font);
       line-height: 1.7;
     }
@@ -41,18 +45,15 @@
       justify-content: space-between;
       padding: 0 2rem;
       height: 64px;
-      background: rgba(13,13,26,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(251,246,236,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
     }
 
     .nav-logo {
       font-family: var(--heading-font);
       font-size: 1.4rem;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--coral);
       text-decoration: none;
     }
 
@@ -64,26 +65,27 @@
     }
 
     .nav-links a {
-      color: var(--muted);
+      color: var(--ink-soft);
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.9rem;
       transition: color 0.2s;
     }
 
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover { color: var(--ink); }
 
     .btn-primary {
       display: inline-block;
       padding: 0.55rem 1.4rem;
-      background: var(--grad);
+      background: var(--coral-grad);
       color: #fff;
       font-family: var(--body-font);
-      font-weight: 700;
+      font-weight: 800;
       font-size: 0.9rem;
       border-radius: 999px;
       text-decoration: none;
       transition: opacity 0.2s;
+      box-shadow: 0 3px 12px rgba(226,114,88,0.3);
     }
 
     .btn-primary:hover { opacity: 0.85; }
@@ -92,28 +94,28 @@
     .page-hero {
       padding: 7rem 2rem 3rem;
       text-align: center;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--line2);
     }
 
     .page-eyebrow {
       display: inline-block;
       font-size: 0.78rem;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--orange);
+      color: var(--coral);
       margin-bottom: 0.8rem;
     }
 
     .page-title {
       font-family: var(--heading-font);
       font-size: clamp(2rem, 5vw, 3rem);
-      color: #fff;
+      color: var(--ink);
       margin-bottom: 0.6rem;
     }
 
     .page-date {
-      color: var(--muted);
+      color: var(--ink-faint);
       font-size: 0.9rem;
     }
 
@@ -127,16 +129,16 @@
     .content-wrap h2 {
       font-family: var(--heading-font);
       font-size: 1.3rem;
-      color: #fff;
+      color: var(--ink);
       margin: 2.5rem 0 0.75rem;
       padding-bottom: 0.4rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--line2);
     }
 
     .content-wrap h2:first-child { margin-top: 0; }
 
     .content-wrap p {
-      color: #b8b8cc;
+      color: var(--ink-soft);
       margin-bottom: 0.9rem;
       font-size: 0.97rem;
     }
@@ -148,7 +150,7 @@
     }
 
     .content-wrap ul li {
-      color: #b8b8cc;
+      color: var(--ink-soft);
       font-size: 0.97rem;
       padding: 0.3rem 0 0.3rem 1.4rem;
       position: relative;
@@ -160,16 +162,13 @@
       left: 0;
       font-size: 0.7rem;
       top: 0.42rem;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--coral);
     }
 
     .highlight-box {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--orange);
+      background: var(--card);
+      border: 1px solid var(--line2);
+      border-left: 3px solid var(--coral);
       border-radius: 10px;
       padding: 1.2rem 1.5rem;
       margin: 1.2rem 0;
@@ -177,21 +176,21 @@
 
     .highlight-box p {
       margin: 0;
-      color: var(--text);
+      color: var(--ink);
     }
 
     a.email-link {
-      color: var(--orange);
+      color: var(--coral);
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     a.email-link:hover { text-decoration: underline; }
 
     /* FOOTER */
     footer {
-      background: #0a0a15;
-      border-top: 1px solid var(--border);
+      background: var(--cream);
+      border-top: 1px solid var(--line2);
       padding: 2.5rem 2rem;
     }
 
@@ -208,10 +207,7 @@
     .footer-logo {
       font-family: var(--heading-font);
       font-size: 1.2rem;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--coral);
       text-decoration: none;
     }
 
@@ -223,16 +219,16 @@
     }
 
     .footer-links a {
-      color: var(--muted);
+      color: var(--ink-soft);
       text-decoration: none;
       font-size: 0.88rem;
-      font-weight: 600;
+      font-weight: 700;
       transition: color 0.2s;
     }
 
-    .footer-links a:hover { color: var(--text); }
+    .footer-links a:hover { color: var(--coral); }
 
-    .footer-copy { color: #555; font-size: 0.85rem; }
+    .footer-copy { color: var(--ink-faint); font-size: 0.85rem; }
 
     @media (max-width: 768px) {
       .nav-links { display: none; }
