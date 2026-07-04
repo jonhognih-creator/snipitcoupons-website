@@ -1,757 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Snip It! — Your Coupon Wallet</title>
-  <meta name="description" content="Snip It! is the smartest way to store, manage and redeem your coupons. Scan any coupon in seconds and never miss a deal again."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --cream:      #FBF6EC;
-      --cream-dark: #F4ECDD;
-      --card:       #FFFFFF;
-      --coral:      #E27258;
-      --coral-soft: rgba(226,114,88,0.1);
-      --coral-grad: linear-gradient(100deg, #E27258 0%, #E8964E 55%, #E8A23D 100%);
-      --sage:       #5C7A6B;
-      --sage-soft:  rgba(92,122,107,0.12);
-      --ink:        #2A2018;
-      --ink-soft:   #7A6B5C;
-      --ink-faint:  #B5A595;
-      --line:       rgba(42,32,24,0.09);
-      --line2:      rgba(42,32,24,0.15);
-      --heading-font: 'Fredoka One', cursive;
-      --body-font:    'Nunito', sans-serif;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--cream);
-      color: var(--ink);
-      font-family: var(--body-font);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      height: 64px;
-      background: rgba(251,246,236,0.92);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav-logo {
-      font-family: var(--heading-font);
-      font-size: 1.4rem;
-      color: var(--coral);
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      align-items: center;
-    }
-
-    .nav-links a {
-      color: var(--ink-soft);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--ink); }
-
-    .btn-primary {
-      display: inline-block;
-      padding: 0.55rem 1.4rem;
-      background: var(--coral-grad);
-      color: #fff;
-      font-family: var(--body-font);
-      font-weight: 800;
-      font-size: 0.9rem;
-      border-radius: 999px;
-      text-decoration: none;
-      transition: opacity 0.2s, transform 0.2s;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 3px 12px rgba(226,114,88,0.3);
-    }
-
-    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
-
-    .btn-outline {
-      display: inline-block;
-      padding: 0.75rem 2rem;
-      background: transparent;
-      color: var(--ink-soft);
-      font-family: var(--body-font);
-      font-weight: 700;
-      font-size: 1rem;
-      border-radius: 999px;
-      text-decoration: none;
-      border: 2px solid var(--line2);
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .btn-outline:hover { border-color: var(--coral); color: var(--coral); }
-
-    .btn-hero-primary {
-      display: inline-block;
-      padding: 0.9rem 2.2rem;
-      background: var(--coral-grad);
-      color: #fff;
-      font-family: var(--body-font);
-      font-weight: 800;
-      font-size: 1.05rem;
-      border-radius: 999px;
-      text-decoration: none;
-      transition: opacity 0.2s, transform 0.2s;
-      box-shadow: 0 6px 24px rgba(226,114,88,0.38);
-    }
-
-    .btn-hero-primary:hover { opacity: 0.88; transform: translateY(-2px); }
-
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 80px 2rem 4rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      gap: 4rem;
-    }
-
-    .hero-text { flex: 1; min-width: 0; }
-
-    .hero-eyebrow {
-      display: inline-block;
-      font-size: 0.8rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--coral);
-      background: var(--coral-soft);
-      border: 1px solid rgba(226,114,88,0.22);
-      border-radius: 999px;
-      padding: 0.3rem 0.9rem;
-      margin-bottom: 1.2rem;
-    }
-
-    .hero-headline {
-      font-family: var(--heading-font);
-      font-size: clamp(2.4rem, 6vw, 4rem);
-      line-height: 1.15;
-      margin-bottom: 1.2rem;
-      color: var(--ink);
-    }
-
-    .hero-headline span {
-      background: var(--coral-grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-sub {
-      font-size: 1.1rem;
-      color: var(--ink-soft);
-      max-width: 520px;
-      margin-bottom: 2.2rem;
-      line-height: 1.7;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    /* ── PHONE MOCKUP ── */
-    .hero-phone {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .phone-frame {
-      width: 240px;
-      height: 500px;
-      background: #fff;
-      border-radius: 40px;
-      border: 2px solid var(--line2);
-      box-shadow:
-        0 0 0 1px rgba(42,32,24,0.04),
-        0 24px 64px rgba(42,32,24,0.14),
-        inset 0 1px 0 rgba(255,255,255,0.9);
-      position: relative;
-      overflow: hidden;
-      padding: 16px 10px 14px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .phone-notch {
-      width: 72px;
-      height: 14px;
-      background: var(--cream);
-      border-radius: 0 0 12px 12px;
-      margin: 0 auto 10px;
-      flex-shrink: 0;
-    }
-
-    .phone-screen {
-      flex: 1;
-      background: var(--cream);
-      border-radius: 26px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      padding: 10px 8px 8px;
-      gap: 6px;
-    }
-
-    .phone-app-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-bottom: 6px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 2px;
-      flex-shrink: 0;
-    }
-
-    .phone-app-title {
-      font-family: var(--heading-font);
-      font-size: 0.85rem;
-      color: var(--coral);
-    }
-
-    .phone-gear {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: var(--cream-dark);
-      border: 1px solid var(--line);
-    }
-
-    /* Savings hero mini */
-    .phone-savings {
-      background: var(--sage);
-      border-radius: 12px;
-      padding: 7px 9px;
-      flex-shrink: 0;
-    }
-    .phone-savings-label {
-      font-size: 0.42rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.8);
-      font-family: var(--body-font);
-    }
-    .phone-savings-amount {
-      font-family: var(--heading-font);
-      font-size: 1.3rem;
-      color: #fff;
-      line-height: 1.1;
-    }
-    .phone-savings-sub {
-      font-size: 0.4rem;
-      color: rgba(255,255,255,0.75);
-      font-family: var(--body-font);
-    }
-
-    /* Mini coupon cards */
-    .mini-coupon {
-      border-radius: 10px;
-      padding: 7px 9px;
-      border: 1.5px dashed;
-      position: relative;
-      flex-shrink: 0;
-      background: #fff;
-    }
-
-    .mini-coupon-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 3px;
-    }
-
-    .mini-store {
-      font-size: 0.58rem;
-      font-weight: 800;
-      font-family: var(--body-font);
-    }
-
-    .mini-expiry {
-      font-size: 0.42rem;
-      font-weight: 800;
-      font-family: var(--body-font);
-      padding: 1px 4px;
-      border-radius: 999px;
-    }
-
-    .mini-discount {
-      font-family: var(--heading-font);
-      font-size: 1.0rem;
-      line-height: 1;
-      margin-bottom: 2px;
-    }
-
-    .mini-desc {
-      font-size: 0.46rem;
-      color: var(--ink-soft);
-      font-family: var(--body-font);
-      margin-bottom: 5px;
-    }
-
-    .mini-perf {
-      height: 1px;
-      border-top: 1.5px dashed var(--line2);
-      margin: 0 -9px 5px;
-    }
-
-    .mini-redeem {
-      display: block;
-      width: 100%;
-      text-align: center;
-      font-size: 0.5rem;
-      font-weight: 800;
-      font-family: var(--body-font);
-      padding: 3px 0;
-      border-radius: 999px;
-      border: none;
-      cursor: default;
-      color: #fff;
-      background: var(--coral-grad);
-    }
-
-    /* card accent colours */
-    .mini-mc   { border-color: #E27258; }
-    .mini-mc .mini-store, .mini-mc .mini-discount { color: var(--coral); }
-    .mini-mc .mini-expiry { background: var(--coral-soft); color: var(--coral); }
-
-    .mini-nike { border-color: #5C7A6B; }
-    .mini-nike .mini-store, .mini-nike .mini-discount { color: var(--sage); }
-    .mini-nike .mini-expiry { background: var(--sage-soft); color: var(--sage); }
-
-    .mini-sbux { border-color: #00704A; }
-    .mini-sbux .mini-store, .mini-sbux .mini-discount { color: #00704A; }
-    .mini-sbux .mini-expiry { background: rgba(0,112,74,0.1); color: #00704A; }
-
-    /* ── SECTIONS ── */
-    section { padding: 6rem 2rem; }
-
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-
-    .section-label {
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--coral);
-      display: block;
-      text-align: center;
-      margin-bottom: 0.75rem;
-    }
-
-    .section-title {
-      font-family: var(--heading-font);
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      text-align: center;
-      color: var(--ink);
-      margin-bottom: 1rem;
-      line-height: 1.2;
-    }
-
-    .section-sub {
-      text-align: center;
-      color: var(--ink-soft);
-      max-width: 540px;
-      margin: 0 auto 3.5rem;
-      font-size: 1.05rem;
-    }
-
-    /* ── FEATURES GRID ── */
-    #screenshots { background: var(--cream-dark); }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    .feature-card {
-      background: var(--card);
-      border: 1px solid var(--line2);
-      border-radius: 22px;
-      padding: 2rem 1.75rem;
-      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
-    }
-
-    .feature-card:hover {
-      border-color: var(--coral);
-      transform: translateY(-4px);
-      box-shadow: 0 8px 32px rgba(226,114,88,0.12);
-    }
-
-    .feature-icon {
-      font-size: 2.4rem;
-      margin-bottom: 1rem;
-      display: block;
-    }
-
-    .feature-title {
-      font-family: var(--heading-font);
-      font-size: 1.3rem;
-      color: var(--ink);
-      margin-bottom: 0.6rem;
-    }
-
-    .feature-desc {
-      color: var(--ink-soft);
-      font-size: 0.95rem;
-      line-height: 1.65;
-    }
-
-    /* ── HOW IT WORKS ── */
-    #how { background: var(--cream); }
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      position: relative;
-    }
-
-    .steps-grid::before {
-      content: '';
-      position: absolute;
-      top: 2.5rem;
-      left: calc(16.66% + 1rem);
-      right: calc(16.66% + 1rem);
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--line2), var(--line2), transparent);
-    }
-
-    .step-card {
-      text-align: center;
-      padding: 2rem 1.5rem;
-      position: relative;
-    }
-
-    .step-num {
-      font-family: var(--heading-font);
-      font-size: 3rem;
-      line-height: 1;
-      background: var(--coral-grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 1rem;
-      display: block;
-    }
-
-    .step-title {
-      font-family: var(--heading-font);
-      font-size: 1.2rem;
-      color: var(--ink);
-      margin-bottom: 0.6rem;
-    }
-
-    .step-desc {
-      color: var(--ink-soft);
-      font-size: 0.93rem;
-      line-height: 1.65;
-    }
-
-    /* ── CTA ── */
-    #cta {
-      background: var(--cream-dark);
-      text-align: center;
-    }
-
-    .cta-box {
-      background: var(--card);
-      border: 1px solid var(--line2);
-      border-radius: 28px;
-      padding: 4rem 2rem;
-      max-width: 640px;
-      margin: 0 auto;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 8px 48px rgba(42,32,24,0.07);
-    }
-
-    .cta-box::before {
-      content: '';
-      position: absolute;
-      top: -80px; left: 50%; transform: translateX(-50%);
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(226,114,88,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .cta-title {
-      font-family: var(--heading-font);
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
-      color: var(--ink);
-      margin-bottom: 0.8rem;
-    }
-
-    .cta-sub {
-      color: var(--ink-soft);
-      font-size: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--cream);
-      border-top: 1px solid var(--line2);
-      padding: 2.5rem 2rem;
-    }
-
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .footer-logo {
-      font-family: var(--heading-font);
-      font-size: 1.2rem;
-      color: var(--coral);
-      text-decoration: none;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: var(--ink-soft);
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 700;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover { color: var(--coral); }
-
-    .footer-copy {
-      color: var(--ink-faint);
-      font-size: 0.85rem;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .features-grid, .steps-grid { grid-template-columns: 1fr; }
-      .steps-grid::before { display: none; }
-      #hero { flex-direction: column; align-items: flex-start; gap: 2rem; text-align: left; }
-    }
-
-    @media (max-width: 768px) {
-      .hero-phone { display: none; }
-      .nav-links { display: none; }
-      nav { padding: 0 1.2rem; }
-      section { padding: 4rem 1.2rem; }
-      .footer-inner { flex-direction: column; text-align: center; }
-      .footer-links { justify-content: center; }
-    }
-
-    @media (min-width: 769px) { .hero-phone { display: flex; } }
-
-    @media (max-width: 480px) {
-      .hero-buttons { flex-direction: column; align-items: stretch; }
-      .btn-hero-primary, .btn-outline { text-align: center; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snip It! — Your Coupon Wallet</title>
+<meta name="description" content="Snap a photo of any coupon, voucher or store credit. Snip It! files it, reminds you before it expires, and shows the barcode when you're ready to pay.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#FBF6EC;font-family:'Nunito',sans-serif;color:#2A2018}
+a{text-decoration:none}
+h1,h2,h3{font-family:'Fredoka',sans-serif;font-weight:600}
+.wrap{max-width:1080px;margin:0 auto;padding-left:28px;padding-right:28px}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:50;background:rgba(251,246,236,.92);backdrop-filter:blur(8px);border-bottom:1px solid #EFE5D2}
+.nav-in{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px}
+.brand{display:flex;align-items:center;gap:9px}
+.brand-tile{width:34px;height:34px;border-radius:10px;background:#E27258;display:flex;align-items:center;justify-content:center}
+.brand-name{font-family:'Fredoka',sans-serif;font-weight:600;font-size:21px;color:#2A2018}
+.nav-links{display:flex;align-items:center;gap:26px;font-weight:700;font-size:14.5px}
+.nav-links a{color:#6E6355}
+.nav-links a:hover{color:#E27258}
+.btn-primary{background:#E27258;color:#fff !important;border-radius:999px;padding:10px 20px;font-weight:800;box-shadow:0 2px 0 #C4573F}
+.btn-primary:hover{background:#D5644A;color:#fff}
+
+/* HERO */
+.hero{display:flex;gap:48px;align-items:center;padding-top:72px;padding-bottom:40px}
+.hero-copy{flex:1;min-width:0}
+.badge{display:inline-flex;align-items:center;gap:8px;background:#F6E7DD;border:1px solid #EDD3C2;color:#B4452B;border-radius:999px;padding:7px 14px;font-weight:800;font-size:12.5px;letter-spacing:1.2px}
+.hero h1{font-size:56px;line-height:1.06;margin:22px 0 0;text-wrap:balance}
+.hero h1 span{color:#E27258}
+.hero p{font-size:18px;line-height:1.6;color:#6E6355;margin:20px 0 0;max-width:460px;font-weight:600}
+.hero-ctas{display:flex;gap:14px;margin-top:30px;align-items:center;flex-wrap:wrap}
+.cta-main{display:inline-flex;align-items:center;gap:9px;background:#E27258;color:#fff;border-radius:999px;padding:15px 28px;font-weight:800;font-size:16px;box-shadow:0 3px 0 #C4573F}
+.cta-main:hover{background:#D5644A}
+.cta-ghost{border:2px solid #E5D8C2;color:#2A2018;border-radius:999px;padding:13px 26px;font-weight:800;font-size:16px;background:#fff}
+.cta-ghost:hover{border-color:#E27258;color:#E27258}
+.hero-trust{display:flex;align-items:center;gap:10px;margin-top:26px;font-weight:700;font-size:13.5px;color:#6E6355}
+.stars{color:#E8A23D;letter-spacing:2px}
+.hero-phone{flex:none;position:relative;padding:26px 40px 10px 10px}
+.hero-phone img{display:block;height:490px;width:auto;border-radius:24px;box-shadow:0 24px 48px rgba(42,32,24,.22),0 0 0 1px rgba(42,32,24,.08);position:relative;transform:rotate(-2deg)}
+.hero-pill{position:absolute;left:-14px;bottom:52px;background:#2A2018;color:#FBF6EC;border-radius:12px;padding:10px 14px;transform:rotate(-5deg);box-shadow:0 8px 20px rgba(42,32,24,.25);display:flex;align-items:center;gap:8px}
+.hero-pill span{font-weight:800;font-size:12.5px}
+
+/* SCALLOP */
+.scallop{height:22px;background:radial-gradient(circle at 11px -4px, #FBF6EC 12px, transparent 12.5px);background-size:26px 22px;background-repeat:repeat-x;background-color:#F4EBDA;margin-top:28px}
+
+/* SECTIONS */
+.sect-tan{background:#F4EBDA}
+.kicker{font-weight:900;font-size:12.5px;letter-spacing:2px;color:#B4452B}
+.sect-head{text-align:center}
+.sect-head h2{font-size:38px;margin:10px 0 0}
+.sect-head p{font-weight:600;font-size:16px;color:#6E6355;margin:12px auto 0;max-width:460px}
+
+/* FEATURES */
+#features{padding-top:64px;padding-bottom:76px;scroll-margin-top:70px}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+.feat{background:#fff;border-radius:20px;padding:26px 24px;box-shadow:0 2px 10px rgba(42,32,24,.05);position:relative}
+.feat .notch-l,.feat .notch-r{position:absolute;top:74px;width:16px;height:16px;border-radius:50%;background:#F4EBDA}
+.feat .notch-l{left:-8px}.feat .notch-r{right:-8px}
+.feat-icon{width:48px;height:48px;border-radius:14px;background:#F6E7DD;display:flex;align-items:center;justify-content:center}
+.feat h3{font-size:21px;margin:18px 0 0}
+.feat p{font-weight:600;font-size:14.5px;line-height:1.6;color:#6E6355;margin:8px 0 0}
+.callout{margin-top:22px;background:#2A2018;border-radius:20px;padding:26px 30px;display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.callout h3{font-size:22px;color:#FBF6EC;margin:0}
+.callout p{font-weight:600;font-size:14.5px;line-height:1.6;color:#C9B99F;margin:8px 0 0;max-width:520px}
+.credit-card{flex:none;background:#FBF6EC;border-radius:14px;padding:14px 18px;min-width:210px}
+.credit-top{display:flex;justify-content:space-between;align-items:baseline}
+.credit-top b{font-weight:800;font-size:13px}
+.credit-amt{font-family:'Fredoka',sans-serif;font-weight:600;font-size:17px;color:#5F8465}
+.credit-bar{margin-top:8px;height:6px;border-radius:3px;background:#EDE2D0;overflow:hidden}
+.credit-bar div{width:60%;height:100%;background:#5F8465}
+.credit-sub{font-weight:700;font-size:11px;color:#8A7B68;margin-top:6px}
+
+/* HOW */
+#how{padding-top:72px;padding-bottom:72px;scroll-margin-top:70px}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:48px;align-items:start}
+.how-step{text-align:center}
+.how-step img{height:390px;width:auto;border-radius:19px;box-shadow:0 14px 30px rgba(42,32,24,.14),0 0 0 1px rgba(42,32,24,.08)}
+.how-t{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:20px}
+.how-n{width:30px;height:30px;border-radius:50%;background:#E27258;color:#fff;font-family:'Fredoka',sans-serif;font-weight:600;font-size:16px;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.how-t h3{font-size:20px;margin:0}
+.how-step p{font-weight:600;font-size:14px;line-height:1.6;color:#6E6355;margin:8px auto 0;max-width:270px}
+
+/* INSIDE */
+.inside{padding-top:64px;padding-bottom:72px}
+.inside-row{display:flex;gap:26px;justify-content:center;align-items:flex-start;margin-top:46px;flex-wrap:wrap}
+.inside-item{text-align:center}
+.inside-item.drop{margin-top:22px}
+.inside-item img{height:330px;width:auto;border-radius:16px;box-shadow:0 12px 26px rgba(42,32,24,.13),0 0 0 1px rgba(42,32,24,.08)}
+.inside-item div{font-weight:800;font-size:13px;color:#6E6355;margin-top:14px}
+
+/* CTA */
+#get{padding-top:76px;padding-bottom:76px;scroll-margin-top:70px}
+.cta-box{max-width:760px;margin:0 auto;background:#E27258;border-radius:26px;padding:52px 40px;text-align:center;position:relative;overflow:hidden}
+.cta-box .scal-t,.cta-box .scal-b{position:absolute;left:0;right:0;height:9px}
+.cta-box .scal-t{top:-2px;background:radial-gradient(circle at 9px 0, #FBF6EC 6px, transparent 6.5px);background-size:20px 9px;background-repeat:repeat-x}
+.cta-box .scal-b{bottom:-2px;background:radial-gradient(circle at 9px 9px, #FBF6EC 6px, transparent 6.5px);background-size:20px 9px;background-repeat:repeat-x}
+.cta-box h2{font-size:38px;color:#fff;margin:0}
+.cta-box p{font-weight:700;font-size:16px;color:#FBE3D8;margin:12px 0 0}
+.appstore-btn{display:inline-flex;align-items:center;gap:10px;background:#2A2018;color:#fff;border-radius:14px;padding:14px 26px;font-weight:800;font-size:16px;margin-top:26px}
+.appstore-btn:hover{background:#191410}
+
+/* SUPPORT/PRIVACY */
+.cards2{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding-bottom:64px}
+.card2{background:#fff;border:1px solid #EFE5D2;border-radius:20px;padding:26px 24px;scroll-margin-top:70px}
+.card2 h3{font-size:20px;margin:0}
+.card2 p{font-weight:600;font-size:14.5px;line-height:1.6;color:#6E6355;margin:8px 0 0}
+.card2 a{display:inline-block;margin-top:14px;font-weight:800;font-size:14.5px;color:#E27258}
+
+/* FOOTER */
+.footer{border-top:1px solid #EFE5D2}
+.footer-in{padding-top:26px;padding-bottom:26px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.footer-links{display:flex;gap:22px;font-weight:700;font-size:13.5px}
+.footer-links a{color:#6E6355}
+.footer-links a:hover{color:#E27258}
+.copyright{font-weight:700;font-size:13px;color:#8A7B68}
+
+/* RESPONSIVE */
+@media (max-width: 900px){
+  .hero{flex-direction:column;padding-top:48px}
+  .hero h1{font-size:42px}
+  .hero-phone{padding:10px 20px}
+  .hero-phone img{height:420px}
+  .feat-grid,.how-grid{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto}
+  .how-grid{gap:44px}
+  .nav-links{gap:16px}
+  .nav-links a:not(.btn-primary){display:none}
+}
+@media (max-width: 640px){
+  .hero h1{font-size:34px}
+  .sect-head h2{font-size:29px}
+  .cta-box h2{font-size:29px}
+  .cards2{grid-template-columns:1fr}
+  .inside-item img{height:280px}
+  .hero-pill{left:0}
+}
+</style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
-<nav>
-  <a href="index.html" class="nav-logo">✂ Snip It!</a>
-  <ul class="nav-links">
-    <li><a href="#screenshots">Features</a></li>
-    <li><a href="#how">How it works</a></li>
-    <li><a href="support.html">Support</a></li>
-    <li><a href="privacy.html">Privacy</a></li>
-    <li><a href="https://app.snipitcoupons.com" class="btn-primary">Get the App</a></li>
-  </ul>
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="brand">
+      <span class="brand-tile"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FBF6EC" stroke-width="2.4" stroke-linecap="round"><circle cx="6.5" cy="6.5" r="2.6"/><circle cx="6.5" cy="17.5" r="2.6"/><path d="M8.7 8.4 19.5 19.2"/><path d="M8.7 15.6 19.5 4.8"/></svg></span>
+      <span class="brand-name">Snip It!</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="support.html">Contact Us</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="#get" class="btn-primary">Get the App</a>
+    </div>
+  </div>
 </nav>
 
-<!-- ── HERO ── -->
-<section id="hero" style="padding-top:80px;">
-  <div class="hero-text">
-    <span class="hero-eyebrow">✂ Free coupon wallet</span>
-    <h1 class="hero-headline">Your coupons,<br/><span>always with you</span></h1>
-    <p class="hero-sub">Scan any coupon, voucher or store credit in seconds. Snip It! keeps them organised, reminds you before they expire, and shows the barcode when you're ready to pay.</p>
-    <div class="hero-buttons">
-      <a href="https://app.snipitcoupons.com" class="btn-hero-primary">✂ Get the App</a>
-      <a href="#screenshots" class="btn-outline">See it in action</a>
+<header id="top" class="wrap hero">
+  <div class="hero-copy">
+    <div class="badge">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#B4452B" stroke-width="2.6" stroke-linecap="round"><circle cx="6.5" cy="6.5" r="2.6"/><circle cx="6.5" cy="17.5" r="2.6"/><path d="M8.7 8.4 19.5 19.2"/><path d="M8.7 15.6 19.5 4.8"/></svg>
+      FREE COUPON WALLET
     </div>
+    <h1>That coupon in your kitchen drawer? <span>It's money.</span></h1>
+    <p>Snap a photo of any coupon, voucher or store credit. Snip It! files it, reminds you before it expires, and shows the barcode when you're ready to pay.</p>
+    <div class="hero-ctas">
+      <a href="#get" class="cta-main">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><circle cx="6.5" cy="6.5" r="2.6"/><circle cx="6.5" cy="17.5" r="2.6"/><path d="M8.7 8.4 19.5 19.2"/><path d="M8.7 15.6 19.5 4.8"/></svg>
+        Get the App
+      </a>
+      <a href="#how" class="cta-ghost">See how it works</a>
+    </div>
+    <div class="hero-trust"><span class="stars">★★★★★</span> Free on the App Store · No ads, ever</div>
   </div>
-
   <div class="hero-phone">
-    <div class="phone-frame">
-      <div class="phone-notch"></div>
-      <div class="phone-screen">
+    <img src="assets/screens/03-my-coupons.png" alt="Snip It! — My Coupons screen">
+    <div class="hero-pill">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E8A23D" stroke-width="2.2" stroke-linecap="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+      <span>Starbucks coupon expires in 5 days</span>
+    </div>
+  </div>
+</header>
 
-        <div class="phone-app-header">
-          <div class="phone-app-title">✂ Snip It!</div>
-          <div class="phone-gear"></div>
-        </div>
+<div class="scallop"></div>
 
-        <!-- Savings hero -->
-        <div class="phone-savings">
-          <div class="phone-savings-label">You've saved</div>
-          <div class="phone-savings-amount">$12.50</div>
-          <div class="phone-savings-sub">4 coupons redeemed</div>
-        </div>
-
-        <!-- McDonald's card -->
-        <div class="mini-coupon mini-mc">
-          <div class="mini-coupon-top">
-            <span class="mini-store">McDonald's</span>
-            <span class="mini-expiry">5d left</span>
-          </div>
-          <div class="mini-discount">£2.50 Fixed</div>
-          <div class="mini-desc">Cheeseburger + Fries</div>
-          <div class="mini-perf"></div>
-          <div class="mini-redeem">Redeem</div>
-        </div>
-
-        <!-- Nike card -->
-        <div class="mini-coupon mini-nike">
-          <div class="mini-coupon-top">
-            <span class="mini-store">Nike</span>
-            <span class="mini-expiry">18d left</span>
-          </div>
-          <div class="mini-discount">30% OFF</div>
-          <div class="mini-desc">Selected footwear</div>
-          <div class="mini-perf"></div>
-          <div class="mini-redeem">Redeem</div>
-        </div>
-
-        <!-- Starbucks card -->
-        <div class="mini-coupon mini-sbux">
-          <div class="mini-coupon-top">
-            <span class="mini-store">Starbucks</span>
-            <span class="mini-expiry">36d left</span>
-          </div>
-          <div class="mini-discount">$5.00</div>
-          <div class="mini-desc">Store credit</div>
-          <div class="mini-perf"></div>
-          <div class="mini-redeem">Redeem</div>
-        </div>
-
+<section id="features" class="sect-tan">
+  <div class="wrap">
+    <div class="sect-head">
+      <div class="kicker">FEATURES</div>
+      <h2>Everything you need, nothing you don't</h2>
+      <p>Snip It! does one thing brilliantly — keeps your coupons organised and ready to use.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat">
+        <div class="notch-l"></div><div class="notch-r"></div>
+        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E27258" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+        <h3>Scan in seconds</h3>
+        <p>Point your camera at any coupon. Snip It! reads the store name, discount, expiry date and barcode — no manual typing, ever.</p>
+      </div>
+      <div class="feat">
+        <div class="notch-l"></div><div class="notch-r"></div>
+        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E27258" stroke-width="2" stroke-linecap="round"><path d="M4 5v14"/><path d="M8 5v14"/><path d="M12 5v14"/><path d="M17 5v14"/><path d="M21 5v14"/></svg></div>
+        <h3>Redeem with one tap</h3>
+        <p>At the till, tap Redeem. Your barcode fills the screen for the scanner, and the coupon archives itself once used.</p>
+      </div>
+      <div class="feat">
+        <div class="notch-l"></div><div class="notch-r"></div>
+        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E27258" stroke-width="2" stroke-linecap="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>
+        <h3>Never let one expire</h3>
+        <p>Every coupon shows a live expiry countdown, and you get a reminder before a deal quietly dies in your wallet.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <div style="flex:1;min-width:260px">
+        <h3>Store credits &amp; gift cards too</h3>
+        <p>Track balances as you spend them — that £25 John Lewis credit stays visible until you've used every penny of it.</p>
+      </div>
+      <div class="credit-card">
+        <div class="credit-top"><b>John Lewis</b><span class="credit-amt">£15.00</span></div>
+        <div class="credit-bar"><div></div></div>
+        <div class="credit-sub">£15.00 left of £25.00</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── FEATURES ── -->
-<section id="screenshots">
-  <div class="section-inner">
-    <span class="section-label">Features</span>
-    <h2 class="section-title">Everything you need,<br/>nothing you don't</h2>
-    <p class="section-sub">Snip It! does one thing brilliantly — keeps your coupons organised and ready to use.</p>
-    <div class="features-grid">
-      <div class="feature-card">
-        <span class="feature-icon">📷</span>
-        <div class="feature-title">Scan in seconds</div>
-        <p class="feature-desc">Point your camera at any coupon. Our AI reads the store name, discount, expiry date and barcode — no manual typing, ever.</p>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">🎯</span>
-        <div class="feature-title">Redeem with one tap</div>
-        <p class="feature-desc">At the till, tap Redeem. Your barcode fills the screen for the scanner. The coupon archives itself automatically once used.</p>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">⏰</span>
-        <div class="feature-title">Never let one expire</div>
-        <p class="feature-desc">Every coupon shows a live expiry countdown. Urgent ones are highlighted so you never forget a deal sitting in your wallet.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── HOW IT WORKS ── -->
 <section id="how">
-  <div class="section-inner">
-    <span class="section-label">How it works</span>
-    <h2 class="section-title">Three steps to saving money</h2>
-    <p class="section-sub">From paper coupon to redeemed in under a minute.</p>
-    <div class="steps-grid">
-      <div class="step-card">
-        <span class="step-num">1</span>
-        <div class="step-title">Take a photo</div>
-        <p class="step-desc">Open Snip It! and tap the camera button. Take a photo of any coupon, voucher, gift card or store credit slip.</p>
+  <div class="wrap">
+    <div class="sect-head">
+      <div class="kicker">HOW IT WORKS</div>
+      <h2>Three steps to saving money</h2>
+      <p>From paper coupon to redeemed in under a minute.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-step">
+        <img src="assets/screens/10-add-coupon.png" alt="Add coupon screen" style="transform:rotate(-1.5deg)">
+        <div class="how-t"><span class="how-n">1</span><h3>Take a photo</h3></div>
+        <p>Open Snip It! and snap any coupon, voucher, gift card or store credit slip.</p>
       </div>
-      <div class="step-card">
-        <span class="step-num">2</span>
-        <div class="step-title">AI does the work</div>
-        <p class="step-desc">Our AI extracts the store, discount amount, expiry date and barcode in seconds. Review and save with a single tap.</p>
+      <div class="how-step">
+        <img src="assets/screens/09-coupon-details.png" alt="Coupon details screen" style="transform:rotate(1.5deg)">
+        <div class="how-t"><span class="how-n">2</span><h3>Snip It! files it</h3></div>
+        <p>Store, amount, expiry date and barcode are read for you. Check it, save it, done.</p>
       </div>
-      <div class="step-card">
-        <span class="step-num">3</span>
-        <div class="step-title">Tap Redeem at the till</div>
-        <p class="step-desc">When you're ready to pay, open the coupon and tap Redeem. Show the barcode, get your discount — done.</p>
+      <div class="how-step">
+        <img src="assets/screens/07-redeem-barcode.png" alt="Redeem barcode screen" style="transform:rotate(-1deg)">
+        <div class="how-t"><span class="how-n">3</span><h3>Redeem at the till</h3></div>
+        <p>Tap Redeem, show the barcode, get your discount. The coupon archives itself.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── CTA ── -->
-<section id="cta">
-  <div class="cta-box">
-    <h2 class="cta-title">Start saving money today</h2>
-    <p class="cta-sub">Free to use. Your coupons synced across all your devices.</p>
-    <a href="https://app.snipitcoupons.com" class="btn-hero-primary">✂ Get the App</a>
+<section class="sect-tan inside">
+  <div class="wrap">
+    <div class="sect-head">
+      <div class="kicker">A LOOK INSIDE</div>
+      <h2>Made for real shopping trips</h2>
+    </div>
+    <div class="inside-row">
+      <div class="inside-item"><img src="assets/screens/04-store-credits.png" alt="Store credits screen" style="transform:rotate(-2deg)"><div>Store credits</div></div>
+      <div class="inside-item drop"><img src="assets/screens/05-offers.png" alt="Offers screen" style="transform:rotate(1.5deg)"><div>Curated offers</div></div>
+      <div class="inside-item"><img src="assets/screens/06-archive.png" alt="Archive screen" style="transform:rotate(-1deg)"><div>Archive &amp; restore</div></div>
+      <div class="inside-item drop"><img src="assets/screens/11-settings.png" alt="Settings screen" style="transform:rotate(2deg)"><div>Reminders, your way</div></div>
+    </div>
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
-<footer>
-  <div class="footer-inner">
-    <a href="index.html" class="footer-logo">✂ Snip It!</a>
-    <ul class="footer-links">
-      <li><a href="#screenshots">Features</a></li>
-      <li><a href="support.html">Support</a></li>
-      <li><a href="privacy.html">Privacy</a></li>
-      <li><a href="terms.html">Terms</a></li>
-    </ul>
-    <span class="footer-copy">© 2026 Snip It!</span>
+<section id="get">
+  <div class="wrap">
+    <div class="cta-box">
+      <div class="scal-t"></div><div class="scal-b"></div>
+      <h2>Start saving money today</h2>
+      <p>Free to use. Your coupons synced across all your devices.</p>
+      <a class="appstore-btn" href="https://apps.apple.com/app/snip-it">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8.88-.18 1.72-.86 3.06-.77 1.61.13 2.83.77 3.63 1.94-3.33 2-2.79 6.39.5 7.7-.61 1.6-1.4 3.19-2.27 4.3zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+        Download on the App Store
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="wrap cards2">
+  <div class="card2">
+    <h3>Need a hand?</h3>
+    <p>Questions, bugs, or a feature you'd love? We read every message.</p>
+    <a href="support.html">Contact us →</a>
+  </div>
+  <div class="card2" id="privacy">
+    <h3>Your data stays yours</h3>
+    <p>We collect only what the app needs, never sell your data, and you can delete everything at any time.</p>
+    <a href="privacy.html">Read the privacy policy →</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap footer-in">
+    <div class="brand">
+      <span class="brand-tile" style="width:26px;height:26px;border-radius:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FBF6EC" stroke-width="2.6" stroke-linecap="round"><circle cx="6.5" cy="6.5" r="2.6"/><circle cx="6.5" cy="17.5" r="2.6"/><path d="M8.7 8.4 19.5 19.2"/><path d="M8.7 15.6 19.5 4.8"/></svg></span>
+      <span class="brand-name" style="font-size:17px">Snip It!</span>
+    </div>
+    <div class="footer-links">
+      <a href="#features">Features</a>
+      <a href="support.html">Contact Us</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+    <div class="copyright">© 2026 Snip It!</div>
   </div>
 </footer>
 

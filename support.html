@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Support — Snip It!</title>
-  <meta name="description" content="Get help with Snip It! — FAQ, troubleshooting, and contact support."/>
+  <title>Contact Us — Snip It!</title>
+  <meta name="description" content="Get help with Snip It! — FAQ, troubleshooting, and a contact form to reach our team."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
   <style>
@@ -145,72 +145,6 @@
       padding: 3.5rem 2rem 2rem;
     }
 
-    .section-heading {
-      font-family: var(--heading-font);
-      font-size: 1.6rem;
-      color: var(--ink);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .section-heading span { color: var(--coral); }
-
-    /* FAQ */
-    .faq-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 4rem;
-    }
-
-    .faq-item {
-      background: var(--card);
-      border: 1px solid var(--line2);
-      border-radius: 14px;
-      overflow: hidden;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .faq-item:hover {
-      border-color: var(--coral);
-      box-shadow: 0 4px 20px rgba(226,114,88,0.1);
-    }
-
-    .faq-q {
-      padding: 1.1rem 1.5rem;
-      font-weight: 800;
-      font-size: 0.97rem;
-      color: var(--ink);
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-    }
-
-    .faq-q::before {
-      content: 'Q';
-      flex-shrink: 0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 22px;
-      height: 22px;
-      background: var(--coral-grad);
-      border-radius: 6px;
-      font-size: 0.7rem;
-      font-weight: 800;
-      color: #fff;
-      margin-top: 0.05rem;
-    }
-
-    .faq-a {
-      padding: 0 1.5rem 1.2rem calc(1.5rem + 22px + 0.75rem);
-      color: var(--ink-soft);
-      font-size: 0.95rem;
-      line-height: 1.7;
-    }
-
     a.inline-link {
       color: var(--coral);
       text-decoration: none;
@@ -276,6 +210,66 @@
 
     .btn-email:hover { opacity: 0.88; transform: translateY(-2px); }
 
+    /* CONTACT FORM */
+    .contact-form {
+      text-align: left;
+      max-width: 440px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--line2);
+      border-radius: 12px;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--body-font);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: var(--coral); }
+
+    .contact-form textarea { resize: vertical; min-height: 110px; }
+
+    .btn-send {
+      display: inline-block;
+      padding: 0.85rem 1.5rem;
+      background: var(--coral-grad);
+      color: #fff;
+      font-family: var(--body-font);
+      font-weight: 800;
+      font-size: 0.98rem;
+      letter-spacing: 0.03em;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(226,114,88,0.3);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .btn-send:hover { opacity: 0.88; transform: translateY(-2px); }
+
+    .form-success {
+      background: var(--coral-soft);
+      border: 1px solid rgba(226,114,88,0.3);
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      color: var(--coral);
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .hp-field { position: absolute; left: -9999px; }
+
     /* FOOTER */
     footer {
       background: var(--cream);
@@ -336,83 +330,65 @@
   <ul class="nav-links">
     <li><a href="index.html#screenshots">Features</a></li>
     <li><a href="index.html#how">How it works</a></li>
-    <li><a href="support.html" style="color:#e8e8f0;">Support</a></li>
+    <li><a href="support.html" style="color:#e8e8f0;">Contact Us</a></li>
     <li><a href="privacy.html">Privacy</a></li>
     <li><a href="https://app.snipitcoupons.com" class="btn-primary">Get the App</a></li>
   </ul>
 </nav>
 
 <div class="page-hero">
-  <div class="page-eyebrow">Help Centre</div>
+  <div class="page-eyebrow">Contact Us</div>
   <h1 class="page-title">We're here to help</h1>
-  <p class="page-sub">Find answers to common questions below, or reach out to us directly — we respond within 24 hours.</p>
+  <p class="page-sub">Send us a message and our team will get back to you within 24 hours.</p>
   <a href="mailto:support@snipitcoupons.com" class="email-pill">✉ support@snipitcoupons.com</a>
 </div>
 
 <div class="content-wrap">
 
-  <h2 class="section-heading"><span>FAQ</span> — Common Questions</h2>
-
-  <div class="faq-list">
-
-    <div class="faq-item">
-      <div class="faq-q">How do I scan a coupon?</div>
-      <div class="faq-a">
-        Open the Snip It! app and tap the orange camera button (or the "+" icon) on the main screen. This opens the coupon scanner. Take a clear photo of your coupon — make sure the whole coupon is visible and well lit. Snip It! will automatically read the store name, discount, expiry date, and barcode. Review the extracted details and tap <strong>Save</strong> to add it to your wallet.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">Why isn't my barcode showing?</div>
-      <div class="faq-a">
-        There are a few reasons a barcode might not appear: (1) The barcode on the original coupon may have been partially obscured or damaged — try rescanning with better lighting. (2) Some coupons use a numeric or QR code rather than a traditional barcode; these are all supported. (3) If the coupon's barcode is very small, try cropping the photo tightly around the barcode before scanning. If you're still having trouble, email us at <a href="mailto:support@snipitcoupons.com" class="inline-link">support@snipitcoupons.com</a> and attach a photo of the coupon.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">Can I use the app on multiple devices?</div>
-      <div class="faq-a">
-        Yes. Snip It! syncs your coupons automatically across all devices signed in to the same account. Add a coupon on your phone and it will appear on your tablet within seconds. Make sure you sign in with the same email address on each device.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">How do I delete a coupon?</div>
-      <div class="faq-a">
-        Open the coupon you want to delete and tap the menu icon (three dots) in the top-right corner, then tap <strong>Delete coupon</strong>. You can also swipe left on a coupon in the list view and tap the red delete button. Deleted coupons are moved to your Archive and permanently deleted after 30 days.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">What happens when I redeem a coupon?</div>
-      <div class="faq-a">
-        When you tap <strong>Redeem</strong>, the coupon's barcode is displayed full-screen at maximum brightness for the cashier to scan. After the screen closes (or you tap <strong>Done</strong>), the coupon is automatically moved to your Archive so your active wallet stays clean. Archived coupons can be viewed anytime in the Archive tab — they are not deleted unless you choose to delete them.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">I found a bug or something isn't working</div>
-      <div class="faq-a">
-        We're sorry to hear that! Please email us at <a href="mailto:support@snipitcoupons.com" class="inline-link">support@snipitcoupons.com</a> with a description of what happened, what you expected to happen, and if possible a screenshot. Let us know the device model and operating system version you're using. We take bugs seriously and aim to address them quickly.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">How do I delete my account?</div>
-      <div class="faq-a">
-        To delete your account and all associated data: go to <strong>Settings</strong> (tap your profile icon), scroll to the bottom and tap <strong>Delete Account</strong>, then confirm the action. This permanently and irreversibly deletes your account, all saved coupons, and your profile data from our servers. If you have trouble accessing your account, email <a href="mailto:support@snipitcoupons.com" class="inline-link">support@snipitcoupons.com</a> and we will delete it for you manually within 48 hours.
-      </div>
-    </div>
-
-  </div>
-
   <!-- CONTACT SECTION -->
-  <div class="contact-box">
-    <div class="contact-title">Still need help?</div>
-    <p class="contact-sub">Our support team reads every message and responds within 24 hours, usually much faster.</p>
-    <a href="mailto:support@snipitcoupons.com" class="btn-email">✉ Email support@snipitcoupons.com</a>
-    <p class="response-note">We typically respond within 24 hours, Monday to Friday.</p>
+  <div class="contact-box" id="contact">
+    <div class="contact-title">Get in touch</div>
+    <p class="contact-sub">Have a question, a bug to report, or feedback? We read every message.</p>
+
+    <div class="form-success" id="formSuccess" style="display:none;">
+      ✓ Thanks — your message is on its way. We'll reply within 24 hours.
+    </div>
+
+    <form class="contact-form" id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contact"/>
+      <p class="hp-field"><label>Don't fill this out: <input name="bot-field"/></label></p>
+
+      <input type="text" name="name" placeholder="Name" required/>
+      <input type="email" name="email" placeholder="Email" required/>
+      <input type="tel" name="phone" placeholder="Phone number (optional)"/>
+      <textarea name="message" placeholder="How can we help?" required></textarea>
+
+      <button type="submit" class="btn-send">SEND MESSAGE</button>
+    </form>
+
+    <p class="response-note">We typically respond within 24 hours, Monday to Friday. Prefer email? Reach us at <a href="mailto:support@snipitcoupons.com" class="inline-link">support@snipitcoupons.com</a>.</p>
   </div>
+
+  <script>
+    (function () {
+      var form = document.getElementById('contactForm');
+      if (!form) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var data = new FormData(form);
+        fetch('/', { method: 'POST', body: data })
+          .then(function (res) {
+            if (!res.ok) throw new Error('Form submission failed: ' + res.status);
+            form.style.display = 'none';
+            document.getElementById('formSuccess').style.display = 'block';
+          })
+          .catch(function () {
+            // .submit() bypasses the 'submit' event entirely, so this can't loop.
+            form.submit();
+          });
+      });
+    })();
+  </script>
 
 </div>
 
@@ -421,7 +397,7 @@
     <a href="index.html" class="footer-logo">✂ Snip It!</a>
     <ul class="footer-links">
       <li><a href="index.html#screenshots">Features</a></li>
-      <li><a href="support.html">Support</a></li>
+      <li><a href="support.html">Contact Us</a></li>
       <li><a href="privacy.html">Privacy</a></li>
       <li><a href="terms.html">Terms</a></li>
     </ul>
