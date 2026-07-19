@@ -1,386 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact Us — Snip It!</title>
-  <meta name="description" content="Get help with Snip It! — FAQ, troubleshooting, and a contact form to reach our team."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — Snip It!</title>
+<meta name="description" content="Get help with Snip It! — questions, bugs, or feedback, we read every message.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/redesign/style.css">
+<style>
+.contact-box {
+  background: var(--card); border: 1px solid var(--line2); border-radius: 20px;
+  padding: 40px; max-width: 720px; margin: 0 auto 56px;
+}
+.contact-box .t { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+.contact-box > p { font-size: 15px; line-height: 1.6; color: var(--ink-soft); margin: 0; }
 
-    :root {
-      --cream:      #FBF6EC;
-      --cream-dark: #F4ECDD;
-      --card:       #FFFFFF;
-      --coral:      #E27258;
-      --coral-soft: rgba(226,114,88,0.1);
-      --coral-grad: linear-gradient(100deg, #E27258 0%, #E8964E 55%, #E8A23D 100%);
-      --ink:        #2A2018;
-      --ink-soft:   #7A6B5C;
-      --ink-faint:  #B5A595;
-      --line:       rgba(42,32,24,0.09);
-      --line2:      rgba(42,32,24,0.15);
-      --heading-font: 'Fredoka One', cursive;
-      --body-font:    'Nunito', sans-serif;
-    }
+.form-wrap { max-width: 720px; margin: 0 auto 64px; }
+.form-card {
+  background: var(--card); border: 1px solid var(--line2); border-radius: 20px; padding: 40px;
+}
+.form-card h3 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+.form-card .sub { font-size: 15px; color: var(--ink-soft); margin-bottom: 24px; }
 
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--cream);
-      color: var(--ink);
-      font-family: var(--body-font);
-      line-height: 1.7;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      height: 64px;
-      background: rgba(251,246,236,0.92);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav-logo {
-      font-family: var(--heading-font);
-      font-size: 1.4rem;
-      color: var(--coral);
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      align-items: center;
-    }
-
-    .nav-links a {
-      color: var(--ink-soft);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--ink); }
-
-    .btn-primary {
-      display: inline-block;
-      padding: 0.55rem 1.4rem;
-      background: var(--coral-grad);
-      color: #fff;
-      font-family: var(--body-font);
-      font-weight: 800;
-      font-size: 0.9rem;
-      border-radius: 999px;
-      text-decoration: none;
-      transition: opacity 0.2s;
-      box-shadow: 0 3px 12px rgba(226,114,88,0.3);
-    }
-
-    .btn-primary:hover { opacity: 0.85; }
-
-    /* HERO */
-    .page-hero {
-      padding: 7rem 2rem 4rem;
-      text-align: center;
-      border-bottom: 1px solid var(--line2);
-    }
-
-    .page-eyebrow {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--coral);
-      margin-bottom: 0.8rem;
-    }
-
-    .page-title {
-      font-family: var(--heading-font);
-      font-size: clamp(2rem, 5vw, 3rem);
-      color: var(--ink);
-      margin-bottom: 0.7rem;
-    }
-
-    .page-sub {
-      color: var(--ink-soft);
-      font-size: 1.05rem;
-      max-width: 480px;
-      margin: 0 auto 1.5rem;
-    }
-
-    .email-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.55rem 1.4rem;
-      background: var(--coral-soft);
-      border: 1px solid rgba(226,114,88,0.3);
-      border-radius: 999px;
-      color: var(--coral);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.95rem;
-      transition: background 0.2s;
-    }
-
-    .email-pill:hover { background: rgba(226,114,88,0.18); }
-
-    /* CONTENT */
-    .content-wrap {
-      max-width: 740px;
-      margin: 0 auto;
-      padding: 3.5rem 2rem 2rem;
-    }
-
-    a.inline-link {
-      color: var(--coral);
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    a.inline-link:hover { text-decoration: underline; }
-
-    /* CONTACT SECTION */
-    .contact-box {
-      background: var(--card);
-      border: 1px solid var(--line2);
-      border-radius: 24px;
-      padding: 3rem 2rem;
-      text-align: center;
-      margin-bottom: 4rem;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 8px 40px rgba(42,32,24,0.06);
-    }
-
-    .contact-box::before {
-      content: '';
-      position: absolute;
-      top: -60px; left: 50%; transform: translateX(-50%);
-      width: 300px; height: 300px;
-      background: radial-gradient(circle, rgba(226,114,88,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .contact-title {
-      font-family: var(--heading-font);
-      font-size: 1.6rem;
-      color: var(--ink);
-      margin-bottom: 0.6rem;
-    }
-
-    .contact-sub {
-      color: var(--ink-soft);
-      margin-bottom: 1.6rem;
-      font-size: 0.97rem;
-    }
-
-    .response-note {
-      margin-top: 1.2rem;
-      font-size: 0.85rem;
-      color: var(--ink-faint);
-    }
-
-    .btn-email {
-      display: inline-block;
-      padding: 0.85rem 2.2rem;
-      background: var(--coral-grad);
-      color: #fff;
-      font-family: var(--body-font);
-      font-weight: 800;
-      font-size: 1rem;
-      border-radius: 999px;
-      text-decoration: none;
-      box-shadow: 0 4px 20px rgba(226,114,88,0.3);
-      transition: opacity 0.2s, transform 0.2s;
-    }
-
-    .btn-email:hover { opacity: 0.88; transform: translateY(-2px); }
-
-    /* CONTACT FORM */
-    .contact-form {
-      text-align: left;
-      max-width: 440px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      border: 1px solid var(--line2);
-      border-radius: 12px;
-      background: var(--cream);
-      color: var(--ink);
-      font-family: var(--body-font);
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .contact-form input:focus,
-    .contact-form textarea:focus { border-color: var(--coral); }
-
-    .contact-form textarea { resize: vertical; min-height: 110px; }
-
-    .btn-send {
-      display: inline-block;
-      padding: 0.85rem 1.5rem;
-      background: var(--coral-grad);
-      color: #fff;
-      font-family: var(--body-font);
-      font-weight: 800;
-      font-size: 0.98rem;
-      letter-spacing: 0.03em;
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(226,114,88,0.3);
-      transition: opacity 0.2s, transform 0.2s;
-    }
-
-    .btn-send:hover { opacity: 0.88; transform: translateY(-2px); }
-
-    .form-success {
-      background: var(--coral-soft);
-      border: 1px solid rgba(226,114,88,0.3);
-      border-radius: 14px;
-      padding: 1rem 1.2rem;
-      color: var(--coral);
-      font-weight: 700;
-      font-size: 0.95rem;
-      margin-bottom: 1.2rem;
-    }
-
-    .form-error {
-      background: rgba(215,86,63,0.08);
-      border: 1px solid rgba(215,86,63,0.3);
-      border-radius: 10px;
-      padding: 0.7rem 1rem;
-      color: #D7563F;
-      font-weight: 700;
-      font-size: 0.88rem;
-    }
-
-    .contact-form input.field-error { border-color: #D7563F; }
-
-    .hp-field { position: absolute; left: -9999px; }
-
-    /* FOOTER */
-    footer {
-      background: var(--cream);
-      border-top: 1px solid var(--line2);
-      padding: 2.5rem 2rem;
-    }
-
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .footer-logo {
-      font-family: var(--heading-font);
-      font-size: 1.2rem;
-      color: var(--coral);
-      text-decoration: none;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: var(--ink-soft);
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 700;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover { color: var(--coral); }
-
-    .footer-copy { color: var(--ink-faint); font-size: 0.85rem; }
-
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      nav { padding: 0 1.2rem; }
-      .footer-inner { flex-direction: column; text-align: center; }
-      .footer-links { justify-content: center; }
-      .content-wrap { padding: 2.5rem 1.2rem 2rem; }
-      .contact-box { padding: 2rem 1.2rem; }
-    }
-  </style>
+.contact-form { display: flex; flex-direction: column; gap: 14px; }
+.contact-form input, .contact-form textarea {
+  width: 100%; padding: 13px 16px; border: 1px solid var(--line2); border-radius: 12px;
+  background: var(--cream); color: var(--ink); font-family: var(--font); font-size: 15px;
+  outline: none; transition: border-color 0.2s;
+}
+.contact-form input:focus, .contact-form textarea:focus { border-color: var(--coral); }
+.contact-form textarea { resize: vertical; min-height: 110px; }
+.btn-send {
+  display: inline-block; padding: 15px; background: var(--grad); color: #fff;
+  font-family: var(--font); font-weight: 800; font-size: 16px; border: none; border-radius: 999px;
+  cursor: pointer; box-shadow: 0 8px 20px rgba(226,114,88,0.3); transition: opacity 0.2s;
+}
+.btn-send:hover { opacity: 0.88; }
+.form-success {
+  background: rgba(226,114,88,0.1); border: 1px solid rgba(226,114,88,0.3); border-radius: 14px;
+  padding: 16px 18px; color: var(--coral); font-weight: 700; font-size: 15px; margin-bottom: 20px;
+}
+.form-error {
+  background: rgba(215,86,63,0.08); border: 1px solid rgba(215,86,63,0.3); border-radius: 10px;
+  padding: 10px 14px; color: #D7563F; font-weight: 700; font-size: 13.5px;
+}
+.contact-form input.field-error { border-color: #D7563F; }
+.hp-field { position: absolute; left: -9999px; }
+.response-note { margin-top: 20px; font-size: 13.5px; color: var(--ink-faint); }
+</style>
 </head>
 <body>
 
-<nav>
-  <a href="index.html" class="nav-logo">✂ Snip It!</a>
-  <ul class="nav-links">
-    <li><a href="index.html#screenshots">Features</a></li>
-    <li><a href="index.html#how">How it works</a></li>
-    <li><a href="support.html" style="color:#e8e8f0;">Contact Us</a></li>
-    <li><a href="privacy.html">Privacy</a></li>
-    <li><a href="https://app.snipitcoupons.com" class="btn-primary">Get the App</a></li>
-  </ul>
+<nav class="nav">
+  <div class="nav-in">
+    <a href="index.html" class="brand">
+      <img src="assets/redesign/icon.png" alt="Snip It! logo">
+      <span>Snip It!</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html#features">Features</a>
+      <a class="nav-link" href="index.html#how">How it works</a>
+      <a class="nav-link" href="support.html">Contact Us</a>
+      <a class="nav-link" href="privacy.html">Privacy</a>
+      <a class="nav-link btn-grad" href="https://apps.apple.com/app/snip-it">Get the App</a>
+    </div>
+  </div>
 </nav>
 
 <div class="page-hero">
-  <div class="page-eyebrow">Contact Us</div>
-  <h1 class="page-title">We're here to help</h1>
-  <p class="page-sub">Send us a message and our team will get back to you within 24 hours.</p>
-  <a href="mailto:snipitcoupons@outlook.com" class="email-pill">✉ snipitcoupons@outlook.com</a>
+  <div class="eyebrow">Contact us</div>
+  <h1 style="font-size:48px">We're here to help</h1>
+  <p class="sub">Send us a message and our team will get back to you within 24 hours.</p>
+  <a href="mailto:snipitcoupons@outlook.com" class="btn-grad large">✉ snipitcoupons@outlook.com</a>
 </div>
 
-<div class="content-wrap">
+<div class="wrap" style="padding-top:56px">
+  <div class="contact-box">
+    <div class="t">Get in touch</div>
+    <p>Have a question, a bug to report, or feedback? We read every message. We typically respond within 24 hours, Monday to Friday. Prefer email? Reach us at <a href="mailto:snipitcoupons@outlook.com">snipitcoupons@outlook.com</a>.</p>
+  </div>
 
-  <!-- CONTACT SECTION -->
-  <div class="contact-box" id="contact">
-    <div class="contact-title">Get in touch</div>
-    <p class="contact-sub">Have a question, a bug to report, or feedback? We read every message.</p>
+  <div class="form-wrap">
+    <div class="form-card">
+      <h3>Or send it straight from here</h3>
+      <p class="sub">Fill this out and we'll reply to your email directly.</p>
 
-    <div class="form-success" id="formSuccess" style="display:none;">
-      ✓ Thanks — your message is on its way. We'll reply within 24 hours.
+      <div class="form-success" id="formSuccess" style="display:none;">
+        ✓ Thanks — your message is on its way. We'll reply within 24 hours.
+      </div>
+
+      <form class="contact-form" id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contact">
+        <p class="hp-field"><label>Don't fill this out: <input name="bot-field"></label></p>
+
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" id="emailField" placeholder="Email" required>
+        <input type="email" name="email_confirm" id="emailConfirmField" placeholder="Confirm email" required>
+        <div class="form-error" id="emailMismatchError" style="display:none;">Those emails don't match — please check for typos.</div>
+        <input type="tel" name="phone" placeholder="Phone number (optional)">
+        <textarea name="message" placeholder="How can we help?" required></textarea>
+
+        <button type="submit" class="btn-send">Send message</button>
+      </form>
+
+      <p class="response-note">We typically respond within 24 hours, Monday to Friday.</p>
     </div>
-
-    <form class="contact-form" id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="contact"/>
-      <p class="hp-field"><label>Don't fill this out: <input name="bot-field"/></label></p>
-
-      <input type="text" name="name" placeholder="Name" required/>
-      <input type="email" name="email" id="emailField" placeholder="Email" required/>
-      <input type="email" name="email_confirm" id="emailConfirmField" placeholder="Confirm email" required/>
-      <div class="form-error" id="emailMismatchError" style="display:none;">Those emails don't match — please check for typos.</div>
-      <input type="tel" name="phone" placeholder="Phone number (optional)"/>
-      <textarea name="message" placeholder="How can we help?" required></textarea>
-
-      <button type="submit" class="btn-send">SEND MESSAGE</button>
-    </form>
-
-    <p class="response-note">We typically respond within 24 hours, Monday to Friday. Prefer email? Reach us at <a href="mailto:snipitcoupons@outlook.com" class="inline-link">snipitcoupons@outlook.com</a>.</p>
   </div>
 
   <script>
@@ -418,25 +144,26 @@
             document.getElementById('formSuccess').style.display = 'block';
           })
           .catch(function () {
-            // .submit() bypasses the 'submit' event entirely, so this can't loop.
             form.submit();
           });
       });
     })();
   </script>
-
 </div>
 
-<footer>
-  <div class="footer-inner">
-    <a href="index.html" class="footer-logo">✂ Snip It!</a>
-    <ul class="footer-links">
-      <li><a href="index.html#screenshots">Features</a></li>
-      <li><a href="support.html">Contact Us</a></li>
-      <li><a href="privacy.html">Privacy</a></li>
-      <li><a href="terms.html">Terms</a></li>
-    </ul>
-    <span class="footer-copy">© 2026 Snip It!</span>
+<footer class="site-footer">
+  <div class="footer-in">
+    <a href="index.html" class="brand">
+      <img src="assets/redesign/icon.png" alt="Snip It! logo">
+      <span>Snip It!</span>
+    </a>
+    <div class="footer-links">
+      <a href="index.html#features">Features</a>
+      <a href="support.html">Contact Us</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+    <div class="copyright">© 2026 Snip It!</div>
   </div>
 </footer>
 

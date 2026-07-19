@@ -1,342 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Privacy Policy — Snip It!</title>
-  <meta name="description" content="Snip It! Privacy Policy — how we handle your data."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --cream:      #FBF6EC;
-      --cream-dark: #F4ECDD;
-      --card:       #FFFFFF;
-      --coral:      #E27258;
-      --coral-soft: rgba(226,114,88,0.1);
-      --coral-grad: linear-gradient(100deg, #E27258 0%, #E8964E 55%, #E8A23D 100%);
-      --ink:        #2A2018;
-      --ink-soft:   #7A6B5C;
-      --ink-faint:  #B5A595;
-      --line:       rgba(42,32,24,0.09);
-      --line2:      rgba(42,32,24,0.15);
-      --heading-font: 'Fredoka One', cursive;
-      --body-font:    'Nunito', sans-serif;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--cream);
-      color: var(--ink);
-      font-family: var(--body-font);
-      line-height: 1.7;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      height: 64px;
-      background: rgba(251,246,236,0.92);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav-logo {
-      font-family: var(--heading-font);
-      font-size: 1.4rem;
-      color: var(--coral);
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      align-items: center;
-    }
-
-    .nav-links a {
-      color: var(--ink-soft);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--ink); }
-
-    .btn-primary {
-      display: inline-block;
-      padding: 0.55rem 1.4rem;
-      background: var(--coral-grad);
-      color: #fff;
-      font-family: var(--body-font);
-      font-weight: 800;
-      font-size: 0.9rem;
-      border-radius: 999px;
-      text-decoration: none;
-      transition: opacity 0.2s;
-      box-shadow: 0 3px 12px rgba(226,114,88,0.3);
-    }
-
-    .btn-primary:hover { opacity: 0.85; }
-
-    /* PAGE */
-    .page-hero {
-      padding: 7rem 2rem 3rem;
-      text-align: center;
-      border-bottom: 1px solid var(--line2);
-    }
-
-    .page-eyebrow {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--coral);
-      margin-bottom: 0.8rem;
-    }
-
-    .page-title {
-      font-family: var(--heading-font);
-      font-size: clamp(2rem, 5vw, 3rem);
-      color: var(--ink);
-      margin-bottom: 0.6rem;
-    }
-
-    .page-date {
-      color: var(--ink-faint);
-      font-size: 0.9rem;
-    }
-
-    /* CONTENT */
-    .content-wrap {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 3.5rem 2rem 6rem;
-    }
-
-    .content-wrap h2 {
-      font-family: var(--heading-font);
-      font-size: 1.35rem;
-      color: var(--ink);
-      margin: 2.5rem 0 0.75rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 1px solid var(--line2);
-    }
-
-    .content-wrap h2:first-child { margin-top: 0; }
-
-    .content-wrap p {
-      color: var(--ink-soft);
-      margin-bottom: 0.9rem;
-      font-size: 0.97rem;
-    }
-
-    .content-wrap ul {
-      list-style: none;
-      padding: 0;
-      margin-bottom: 0.9rem;
-    }
-
-    .content-wrap ul li {
-      color: var(--ink-soft);
-      font-size: 0.97rem;
-      padding: 0.3rem 0 0.3rem 1.4rem;
-      position: relative;
-    }
-
-    .content-wrap ul li::before {
-      content: '✂';
-      position: absolute;
-      left: 0;
-      font-size: 0.7rem;
-      top: 0.42rem;
-      color: var(--coral);
-    }
-
-    .highlight-box {
-      background: var(--card);
-      border: 1px solid var(--line2);
-      border-left: 3px solid var(--coral);
-      border-radius: 10px;
-      padding: 1.2rem 1.5rem;
-      margin: 1.2rem 0;
-    }
-
-    .highlight-box p {
-      margin: 0;
-      color: var(--ink);
-    }
-
-    a.email-link {
-      color: var(--coral);
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    a.email-link:hover { text-decoration: underline; }
-
-    /* FOOTER */
-    footer {
-      background: var(--cream);
-      border-top: 1px solid var(--line2);
-      padding: 2.5rem 2rem;
-    }
-
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .footer-logo {
-      font-family: var(--heading-font);
-      font-size: 1.2rem;
-      color: var(--coral);
-      text-decoration: none;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: var(--ink-soft);
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 700;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover { color: var(--coral); }
-
-    .footer-copy { color: var(--ink-faint); font-size: 0.85rem; }
-
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      nav { padding: 0 1.2rem; }
-      .footer-inner { flex-direction: column; text-align: center; }
-      .footer-links { justify-content: center; }
-      .content-wrap { padding: 2.5rem 1.2rem 5rem; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Snip It!</title>
+<meta name="description" content="Snip It! Privacy Policy — how we collect, use, and protect your data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/redesign/style.css">
+<style>
+.legal-body { max-width: 760px; margin: 0 auto; padding: 0 48px 160px; }
+.legal-body h2 { font-family: var(--font); font-weight: 800; font-size: 24px; margin: 0 0 16px; }
+.legal-body p.updated { font-size: 15px; color: var(--ink-faint); margin: 0 0 48px; }
+.legal-body p.p { font-size: 16px; line-height: 1.75; color: rgba(42,32,25,0.72); margin: 0 0 16px; }
+.legal-body p.p:last-child { margin-bottom: 0; }
+.legal-section { margin-bottom: 40px; }
+.bullets { display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
+.bullets.tight { gap: 10px; }
+.bullet { display: flex; gap: 12px; }
+.bullet .dot { width: 6px; height: 6px; border-radius: 999px; margin-top: 9px; flex-shrink: 0; }
+.bullet p { font-size: 16px; line-height: 1.7; color: rgba(42,32,25,0.72); margin: 0; }
+@media (max-width: 860px) { .legal-body { padding: 0 24px 120px; } }
+</style>
 </head>
 <body>
 
-<nav>
-  <a href="index.html" class="nav-logo">✂ Snip It!</a>
-  <ul class="nav-links">
-    <li><a href="index.html#screenshots">Features</a></li>
-    <li><a href="index.html#how">How it works</a></li>
-    <li><a href="support.html">Contact Us</a></li>
-    <li><a href="privacy.html" style="color:#e8e8f0;">Privacy</a></li>
-    <li><a href="https://app.snipitcoupons.com" class="btn-primary">Get the App</a></li>
-  </ul>
+<nav class="nav">
+  <div class="nav-in">
+    <a href="index.html" class="brand">
+      <img src="assets/redesign/icon.png" alt="Snip It! logo">
+      <span>Snip It!</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html#features">Features</a>
+      <a class="nav-link" href="index.html#how">How it works</a>
+      <a class="nav-link" href="support.html">Contact Us</a>
+      <a class="nav-link" href="privacy.html">Privacy</a>
+      <a class="nav-link btn-grad" href="https://apps.apple.com/app/snip-it">Get the App</a>
+    </div>
+  </div>
 </nav>
 
-<div class="page-hero">
-  <div class="page-eyebrow">Legal</div>
-  <h1 class="page-title">Privacy Policy</h1>
-  <p class="page-date">Last updated: July 2026</p>
+<div class="page-hero legal">
+  <div class="eyebrow">Legal</div>
+  <h1 style="font-size:44px">Privacy Policy</h1>
+  <p class="updated">Last updated: July 2026</p>
 </div>
 
-<div class="content-wrap">
+<div class="legal-body">
 
-  <h2>Overview</h2>
-  <p>Snip It! ("we", "our", or "us") is committed to protecting your privacy. This policy explains what information we collect, how we use it, and the choices you have. We believe in plain language — no legal jargon.</p>
-
-  <div class="highlight-box">
-    <p>The short version: we collect only what we need to run the app, we never sell your data, and you can delete everything at any time.</p>
+  <div class="legal-section">
+    <h2>Overview</h2>
+    <p class="p">Snip It! ("we", "our", or "us") is committed to protecting your privacy. This policy explains what information we collect, how we use it, and the choices you have. We believe in plain language — no legal jargon.</p>
+    <p class="p">The short version: we collect only what we need to run the app, we never sell your data, and you can delete everything at any time.</p>
   </div>
 
-  <h2>What We Collect</h2>
-  <p>We collect the following categories of information:</p>
-  <ul>
-    <li><strong>Account information</strong> — your email address and display name when you sign up.</li>
-    <li><strong>Coupon data</strong> — store name, discount amount, expiry date, barcode value, and any notes you add. This is stored securely in your account.</li>
-    <li><strong>Coupon photos</strong> — when you scan a coupon, the photo is sent to our AI provider for processing. Photos are used only to extract coupon details and are <strong>not stored</strong> by us or our AI provider after processing.</li>
-    <li><strong>Approximate location (city-level)</strong> — when you use the app, we derive your approximate city and country from your IP address. We collect city and country only — never your exact address, GPS coordinates, or precise location. This data is used solely for aggregate analytics (e.g. understanding which cities have the most users) and is never tied to your individual identity in any report we share or publish.</li>
-    <li><strong>Usage data</strong> — basic analytics such as which features you use, crash reports, and app performance data. This data is anonymised and aggregated.</li>
-  </ul>
-
-  <h2>How We Use Your Information</h2>
-  <ul>
-    <li>To create and manage your Snip It! account.</li>
-    <li>To sync your coupons across your devices.</li>
-    <li>To process coupon photos through AI scanning and return the extracted data to you.</li>
-    <li>To send expiry reminders (if you have notifications enabled).</li>
-    <li>To understand the geographic distribution of our users at a city level, so we can improve the service and identify relevant local business partnerships. This analysis is aggregate only — we never publish or share data that identifies individual users by location.</li>
-    <li>To improve the app using anonymised usage analytics.</li>
-    <li>To respond to support requests you send us.</li>
-  </ul>
-
-  <h2>Third-Party Services</h2>
-  <p>We use a small number of trusted third parties to run the app:</p>
-  <ul>
-    <li><strong>Supabase</strong> — provides our database and authentication infrastructure. Your coupon data and account information are stored on Supabase servers. Supabase is SOC 2 compliant. Learn more at <a href="https://supabase.com/privacy" class="email-link" target="_blank" rel="noopener">supabase.com/privacy</a>.</li>
-    <li><strong>Anthropic</strong> — provides the AI that reads your coupon photos. When you scan a coupon, the photo is transmitted to Anthropic's API for processing. Anthropic does not store the images after processing and does not use them for training. Learn more at <a href="https://www.anthropic.com/privacy" class="email-link" target="_blank" rel="noopener">anthropic.com/privacy</a>.</li>
-    <li><strong>ipapi.co</strong> — provides the city-level IP geolocation lookup described above. Your IP address is sent to ipapi.co on login to derive an approximate city and country; no exact address or GPS location is ever requested or received. Learn more at <a href="https://ipapi.co/privacy/" class="email-link" target="_blank" rel="noopener">ipapi.co/privacy</a>.</li>
-  </ul>
-  <p>We do not use advertising networks, third-party trackers, or analytics that identify you personally.</p>
-
-  <h2>Data Storage and Security</h2>
-  <p>Your coupon data is stored in a secure database managed by Supabase. Access is protected by row-level security — you can only access your own data. All data is transmitted over HTTPS.</p>
-
-  <h2>We Never Sell Your Data</h2>
-  <div class="highlight-box">
-    <p>We will never sell, rent, or share your personal data with third parties for marketing or advertising purposes. Full stop.</p>
+  <div class="legal-section">
+    <h2>What We Collect</h2>
+    <div class="bullets">
+      <div class="bullet"><div class="dot" style="background:var(--coral)"></div><p><strong>Account information</strong> — your email address and display name when you sign up.</p></div>
+      <div class="bullet"><div class="dot" style="background:var(--coral)"></div><p><strong>Coupon data</strong> — store name, discount amount, expiry date, barcode value, and any notes you add. This is stored securely in your account.</p></div>
+      <div class="bullet"><div class="dot" style="background:var(--coral)"></div><p><strong>Coupon photos</strong> — when you scan a coupon, the photo is sent to our AI provider for processing. Photos are used only to extract coupon details and are <strong>not stored</strong> by us or our AI provider after processing.</p></div>
+      <div class="bullet"><div class="dot" style="background:var(--coral)"></div><p><strong>Approximate location (city-level)</strong> — we derive your approximate city and country from your IP address. We never collect exact address, GPS coordinates, or precise location. Used solely for aggregate analytics, never tied to your individual identity in anything we share or publish.</p></div>
+      <div class="bullet"><div class="dot" style="background:var(--coral)"></div><p><strong>Usage data</strong> — basic analytics such as which features you use, crash reports, and app performance data. Anonymised and aggregated.</p></div>
+    </div>
   </div>
 
-  <h2>Your Rights and Choices</h2>
-  <ul>
-    <li><strong>Access</strong> — you can view all your coupon data inside the app at any time.</li>
-    <li><strong>Deletion</strong> — you can delete individual coupons at any time. You can delete your entire account and all associated data from the account settings screen. Deletion is permanent and irreversible.</li>
-    <li><strong>Export</strong> — contact us at <a href="mailto:snipitcoupons@outlook.com" class="email-link">snipitcoupons@outlook.com</a> to request a copy of your data.</li>
-    <li><strong>Notifications</strong> — you can disable expiry reminders in your device settings at any time.</li>
-    <li><strong>Analytics opt-out</strong> — you can turn off usage and location analytics at any time from the Settings screen in the app.</li>
-  </ul>
+  <div class="legal-section">
+    <h2>How We Use Your Information</h2>
+    <div class="bullets tight">
+      <div class="bullet"><div class="dot" style="background:var(--amber)"></div><p>To create and manage your Snip It! account, and sync your coupons across your devices.</p></div>
+      <div class="bullet"><div class="dot" style="background:var(--amber)"></div><p>To process coupon photos through AI scanning and return the extracted data to you.</p></div>
+      <div class="bullet"><div class="dot" style="background:var(--amber)"></div><p>To send expiry reminders (if you have notifications enabled).</p></div>
+      <div class="bullet"><div class="dot" style="background:var(--amber)"></div><p>To understand the geographic distribution of our users at a city level and improve the app using anonymised usage analytics.</p></div>
+      <div class="bullet"><div class="dot" style="background:var(--amber)"></div><p>To respond to support requests you send us.</p></div>
+    </div>
+  </div>
 
-  <h2>Children's Privacy</h2>
-  <p>Snip It! is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, please contact us and we will delete it promptly.</p>
+  <div class="legal-section">
+    <h2>Third-Party Services</h2>
+    <p class="p">We use a small number of trusted third parties to run the app:</p>
+    <div class="bullets" style="margin-bottom:16px">
+      <div class="bullet"><div class="dot" style="background:var(--gold)"></div><p><strong>Supabase</strong> — provides our database and authentication infrastructure. Supabase is SOC 2 compliant. Learn more at <a href="https://supabase.com/privacy">supabase.com/privacy</a>.</p></div>
+      <div class="bullet"><div class="dot" style="background:var(--gold)"></div><p><strong>Anthropic</strong> — provides the AI that reads your coupon photos. Anthropic does not store the images after processing and does not use them for training. Learn more at <a href="https://www.anthropic.com/privacy">anthropic.com/privacy</a>.</p></div>
+      <div class="bullet"><div class="dot" style="background:var(--gold)"></div><p><strong>ipapi.co</strong> — provides the city-level IP geolocation lookup described above; no exact address or GPS location is ever requested or received. Learn more at <a href="https://ipapi.co/privacy/">ipapi.co/privacy</a>.</p></div>
+    </div>
+    <p class="p">We do not use advertising networks, third-party trackers, or analytics that identify you personally.</p>
+  </div>
 
-  <h2>Changes to This Policy</h2>
-  <p>We may update this Privacy Policy from time to time. When we make significant changes, we will update the "Last updated" date at the top and, where appropriate, notify you within the app. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+  <div class="legal-section">
+    <h2>Data Storage and Security</h2>
+    <p class="p">Your coupon data is stored in a secure database managed by Supabase. Access is protected by row-level security — you can only access your own data. All data is transmitted over HTTPS.</p>
+  </div>
 
-  <h2>Contact Us</h2>
-  <p>If you have any questions about this Privacy Policy or how we handle your data, please contact us:</p>
-  <p>Email: <a href="mailto:snipitcoupons@outlook.com" class="email-link">snipitcoupons@outlook.com</a></p>
-  <p>We aim to respond to all privacy enquiries within 48 hours.</p>
+  <div class="legal-section">
+    <h2>We Never Sell Your Data</h2>
+    <p class="p">We will never sell, rent, or share your personal data with third parties for marketing or advertising purposes. Full stop.</p>
+  </div>
+
+  <div class="legal-section">
+    <h2>Your Rights and Choices</h2>
+    <div class="bullets tight">
+      <div class="bullet"><div class="dot" style="background:var(--coral)"></div><p><strong>Access</strong> — view all your coupon data inside the app at any time.</p></div>
+      <div class="bullet"><div class="dot" style="background:var(--coral)"></div><p><strong>Deletion</strong> — delete individual coupons, or your entire account and all associated data, from account settings. Deletion is permanent and irreversible.</p></div>
+      <div class="bullet"><div class="dot" style="background:var(--coral)"></div><p><strong>Export</strong> — contact us at <a href="mailto:snipitcoupons@outlook.com">snipitcoupons@outlook.com</a> to request a copy of your data.</p></div>
+      <div class="bullet"><div class="dot" style="background:var(--coral)"></div><p><strong>Notifications</strong> — disable expiry reminders in your device settings at any time.</p></div>
+      <div class="bullet"><div class="dot" style="background:var(--coral)"></div><p><strong>Analytics opt-out</strong> — turn off usage and location analytics any time from Settings in the app.</p></div>
+    </div>
+  </div>
+
+  <div class="legal-section">
+    <h2>Children's Privacy</h2>
+    <p class="p">Snip It! is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, please contact us and we will delete it promptly.</p>
+  </div>
+
+  <div class="legal-section">
+    <h2>Changes to This Policy</h2>
+    <p class="p">We may update this Privacy Policy from time to time. When we make significant changes, we will update the "Last updated" date above and, where appropriate, notify you within the app. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+  </div>
+
+  <div class="legal-section" style="margin-bottom:0">
+    <h2>Contact Us</h2>
+    <p class="p">If you have any questions about this Privacy Policy or how we handle your data, please contact us:</p>
+    <p class="p">Email: <a href="mailto:snipitcoupons@outlook.com">snipitcoupons@outlook.com</a></p>
+    <p class="p">We aim to respond to all privacy enquiries within 48 hours.</p>
+  </div>
 
 </div>
 
-<footer>
-  <div class="footer-inner">
-    <a href="index.html" class="footer-logo">✂ Snip It!</a>
-    <ul class="footer-links">
-      <li><a href="index.html#screenshots">Features</a></li>
-      <li><a href="support.html">Contact Us</a></li>
-      <li><a href="privacy.html">Privacy</a></li>
-      <li><a href="terms.html">Terms</a></li>
-    </ul>
-    <span class="footer-copy">© 2026 Snip It!</span>
+<footer class="site-footer">
+  <div class="footer-in">
+    <a href="index.html" class="brand">
+      <img src="assets/redesign/icon.png" alt="Snip It! logo">
+      <span>Snip It!</span>
+    </a>
+    <div class="footer-links">
+      <a href="index.html#features">Features</a>
+      <a href="support.html">Contact Us</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+    <div class="copyright">© 2026 Snip It!</div>
   </div>
 </footer>
 
